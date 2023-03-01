@@ -146,6 +146,19 @@ app.get('/events/:eventId', (req, res) => {
 
     axios.get(remote_api_url)
     .then(function(response){
+       
+        var attractions = [];
+        var venue_names = [];
+        var venue_ids = [];
+        var genres = [];
+
+
+        try{
+            const attractions
+
+        }catch(error){}
+    
+
         res.send("GOT RESPONSE");
     }).catch(function(error){
         res.send("GOT ERROR");
