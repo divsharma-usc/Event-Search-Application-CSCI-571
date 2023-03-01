@@ -5,12 +5,37 @@ const geohash = require('ngeohash');
 const app = express();
 const port = 3000;
 
-const REMOTE_API_URI = 'https://app.ticketmaster.com/discovery/v2';
-const REMOTE_API_KEY = 'Swp5VSdz4nQJk5B9NoeMAMG7r8jMviKo';
+const REMOTE_API_URI = "https://app.ticketmaster.com/discovery/v2";
+const REMOTE_API_KEY = "Swp5VSdz4nQJk5B9NoeMAMG7r8jMviKo";
 const UNDEFINED = "undefined";
 const REMOTE_API_PAGE_SIZE = 20;
 
 app.use(cors());
+
+/****** API TO GIVE SUGGESTIONS *******/
+app.get('/suggest', (req, res) => {
+    const keyword = req.query["keyword"];
+    const remote_api_url = REMOTE_API_URI + "/suggest?apikey=" + REMOTE_API_KEY + "&keyword=" + keyword;
+    
+    axios.get(remote_api_url)
+    .then(function(response){
+        response_data = response.data;
+        console.log(response_data['_embedded']['events']);
+        events = response_data['_embedded']['events'].map((event) => { return event['name']});
+        console.log(events);
+        const response_to_send = {
+            "events": events
+        };
+        res.send(response_to_send);
+    }).catch(function(error){
+        console.log(error);
+        res.send({
+            "status": 500,
+            "message": "Internal Server Error"
+        });
+    });
+    
+});
 
 /*******  API TO SEARCH EVENTS  *********/
 app.get('/events', (req, res) => {
@@ -24,10 +49,10 @@ app.get('/events', (req, res) => {
         "miscellaneous": "KZFzniwnSyZfZ7v7n1"
     };
 
-    const segment_id = req.params["segment"];
-    const radius = req.params["radius"];
-    const keyword = req.params["keyword"];
-    const geo_point = req.params["geoPoint"];
+    const segment_id = req.query["segment"];
+    const radius = req.query["radius"];
+    const keyword = req.query["keyword"];
+    const geo_point = req.query["geoPoint"];
 
     var remote_api_url = REMOTE_API_URI + "/events.json?apikey=" + REMOTE_API_KEY;
 
@@ -128,14 +153,14 @@ app.get('/events', (req, res) => {
             }
         }
 
-        res.send(res.json(response_to_send));
+        res.send(response_to_send);
     })
     .catch(function(error){
         console.log(error)
-        res.send(res.json({
+        res.send({
                 "status": 500,
                 "message": "Internal Server Error"
-            }));
+            });
     });
 });
 
@@ -150,14 +175,7 @@ app.get('/events/:eventId', (req, res) => {
         var attractions = [];
         var venue_names = [];
         var venue_ids = [];
-        var genres = [];
-
-
-        try{
-            const attractions
-
-        }catch(error){}
-    
+        var genres = [];    
 
         res.send("GOT RESPONSE");
     }).catch(function(error){
