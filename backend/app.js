@@ -8,9 +8,11 @@ const port = 3000;
 const REMOTE_API_URI = 'https://app.ticketmaster.com/discovery/v2';
 const REMOTE_API_KEY = 'Swp5VSdz4nQJk5B9NoeMAMG7r8jMviKo';
 const UNDEFINED = "undefined";
+const REMOTE_API_PAGE_SIZE = 20;
 
-app.use(cors())
+app.use(cors());
 
+/*******  API TO SEARCH EVENTS  *********/
 app.get('/events', (req, res) => {
 
     const segment_to_segment_id = {
@@ -135,8 +137,22 @@ app.get('/events', (req, res) => {
                 "message": "Internal Server Error"
             }));
     });
-})
+});
+
+/*******  API TO SEARCH EVENTS  *********/
+app.get('/events/:eventId', (req, res) => {
+    const event_id = req.params.eventId;
+    const remote_api_url = REMOTE_API_URI + '/events/' + event_id + '.json?size=' + REMOTE_API_PAGE_SIZE + '&apikey=' + REMOTE_API_KEY;
+
+    axios.get(remote_api_url)
+    .then(function(response){
+        res.send("GOT RESPONSE");
+    }).catch(function(error){
+        res.send("GOT ERROR");
+    });
+
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
-})
+});
