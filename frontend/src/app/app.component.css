@@ -24,3 +24,9 @@
     border: 1px solid white;
     border-radius: 7px;
 }
+
+#mainContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

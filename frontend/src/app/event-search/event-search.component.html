@@ -1,1 +1,69 @@
-<p>event-search works!</p>
+<div>
+    <!-- SEARCH FORM CONTAINER -->
+    <div id="search_form_container">
+
+        <div id = "search_form_heading">
+            <span>Events Search</span>
+        </div>
+
+        <div id="search_form_container_line"></div>
+
+        <form class="form" id="search_events_form" method="post"  autocomplete="off" [formGroup]="searchEventsForm">              
+            <input type="text"
+                    placeholder=""
+                    matInput
+                    formControlName="keyword"
+                    [matAutocomplete]="auto"
+                    class = "keywordInput"
+                    required>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner class="mat-spinner-css" style="height: 30px; width:30px;"></mat-spinner></mat-option>
+            <ng-container *ngIf="!isLoading">
+                <mat-option *ngFor="let event of filteredEvents" [value]="event">
+                    <span>{{event}}</span>
+                </mat-option>
+            </ng-container>
+            </mat-autocomplete>
+               
+             
+              
+           
+
+
+            <div id="distance_and_category_box" style="margin-top: 8px;">
+
+                <div id="distance">
+                    <label style="display: block;">Distance (miles)</label>
+                    <input style="display: block; margin-top: 6px;" type="number" placeholder="10" id="radius" min="1"/>
+                </div>
+
+                <div id ="category_box">
+                    <label style="display: block;" class="required-field">Category</label>
+                    <select style="display: block; margin-top: 6px;" name="category" id="category">
+                        <option value="default">Default</option>
+                        <option value="music">Music</option>
+                        <option value="sports">Sports</option>
+                        <option value="arts">Arts & Theatre</option>
+                        <option value="film">Film</option>
+                        <option value="miscellaneous">Miscellaneous</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="location_box"  style="margin-top: 8px;">
+          
+                <label class="required-field" style="margin-top: 0px;">Location</label>
+                <input type="text" id="manual_location" formControlName="location" required/>
+                <input type="checkbox" id="auto_detect_location" name="auto_detect_location"><label>Auto-Detect Location</label>
+            
+            </div>
+
+            <div id = "search_form_buttons_box">
+                <button id="submit_search_form" class="btn btn-danger">SEARCH</button>
+                <button id="clear_search_form" class="btn btn-primary">CLEAR</button>
+            </div>
+
+        </form>
+    </div>
+</div>
