@@ -66,12 +66,12 @@
     margin-top: 10px;
 }
 
-#search_form_container #search_events_form #keyword{
-    width: 556px;
+#search_form_container #search_events_form #keywordID{
+    width: 100%;
 }
 
 #search_form_container #search_events_form #segment{
-    width: 200px;
+    width: 40%;
 }
 
 #search_form_container #search_events_form select{
@@ -101,19 +101,19 @@
 }
 
 #search_form_container #search_events_form #distance_and_category_box #distance{
-    width: 190px;
+    width: 80%;
 }
 
 #search_form_container #search_events_form #distance_and_category_box #distance #radius{
-    width: 190px;
+    width: 80%;
 }
 
 #search_form_container #search_events_form #distance_and_category_box #category_box{
-    width: 275px;
+    width: 55%;
 }
 
-#search_form_container #search_events_form #manual_location{
-    width: 556px;
+#search_form_container #search_events_form #locationID{
+    width: 100%;
 }
 
 #search_form_container #search_events_form #search_form_buttons_box{
@@ -132,12 +132,13 @@
 
 
 .mat-spinner-css{
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
     margin: 0px;
     padding: 0px;
 }
 
-.keywordInput{
-    width: 100%;
+#checkboxBox{
+    display: flex;
+    align-items: center;
 }

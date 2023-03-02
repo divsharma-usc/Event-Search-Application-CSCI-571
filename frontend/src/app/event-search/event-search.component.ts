@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { debounceTime, tap, switchMap, finalize, distinctUntilChanged, filter } from 'rxjs/operators';
 
@@ -14,10 +14,11 @@ export class EventSearchComponent implements OnInit{
   default: string = 'Default';
 
   searchEventsForm = new FormGroup({
-      keyword: new FormControl(''),
+      keyword: new FormControl('', [Validators.required]),
       distance: new FormControl(10),
-      location: new FormControl(null),
-      segment: new FormControl('')
+      location: new FormControl(null, [Validators.required]),
+      segment: new FormControl(''),
+      autoDetection: new FormControl(false)
   });
 
   filteredEvents: any;
@@ -84,7 +85,34 @@ export class EventSearchComponent implements OnInit{
 
   //function to clear search
   clearSearchForm() {
+    this.selectedEvent = '';
+    this.filteredEvents = [];
     this.searchEventsForm.reset();
+    this.searchEventsForm.patchValue({'keyword' : ''});
     this.searchEventsForm.controls['segment'].setValue(this.defaultSegment, {onlySelf: true});
+  }
+
+  //function to submit form
+  submitSearchForm(){
+
+    //Check form Validity
+    const keywordInput = (<HTMLInputElement>document.getElementById("keywordID"));
+    const keywordValidityState = keywordInput.validity;
+
+    if (keywordValidityState.valueMissing) {
+      keywordInput.reportValidity();
+      return
+    }
+
+    const locationInput = (<HTMLInputElement>document.getElementById("locationID"));
+    const autoDetectInput = (<HTMLInputElement>document.getElementById("autoDetectID"));
+
+    const locationValidityState = locationInput.validity;
+    const autoDetectValue = autoDetectInput.checked;
+
+    if(locationValidityState.valueMissing &&  !autoDetectValue){
+      locationInput.reportValidity();
+      return
+    }
   }
 }

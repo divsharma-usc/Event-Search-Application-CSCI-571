@@ -16,6 +16,7 @@
                     formControlName="keyword"
                     [matAutocomplete]="auto"
                     class = "keywordInput"
+                    id = "keywordID"
                     required>
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
             <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner class="mat-spinner-css" style="height: 30px; width:30px;"></mat-spinner></mat-option>
@@ -31,7 +32,7 @@
 
                 <div id="distance">
                     <label style="display: block;" class="required-field">Distance (miles)</label>
-                    <input style="display: block; margin-top: 6px;" type="number" placeholder="10" id="radius" min="1" formControlName="distance"/>
+                    <input style="display: block; margin-top: 6px;" type="number" placeholder="10" id="distance" min="1" formControlName="distance"/>
                 </div>
 
                 <div id ="category_box">
@@ -45,14 +46,16 @@
             <div class="location_box"  style="margin-top: 8px;">
           
                 <label class="required-field" style="margin-top: 0px;">Location</label>
-                <input type="text" id="manual_location" formControlName="location" required/>
-                <input type="checkbox" id="auto_detect_location" name="auto_detect_location"><label>Auto-Detect Location</label>
+                <input type="text" id="locationID" formControlName="location" required/>
+                <div id="checkboxBox">
+                    <input type="checkbox" id="autoDetectID" name="auto_detect_location" formControlName="autoDetection"><label>Auto-Detect Location</label>
+                </div>
             
             </div>
 
             <div id = "search_form_buttons_box">
-                <button id="submit_search_form" class="btn btn-danger">SEARCH</button>
-                <button id="clear_search_form" (click)="clearSearchForm()"class="btn btn-primary">CLEAR</button>
+                <button id="submit_search_form" class="btn btn-danger" (click)="submitSearchForm()">SEARCH</button>
+                <button id="clear_search_form" (click)="clearSearchForm()" class="btn btn-primary">CLEAR</button>
             </div>
 
         </form>
