@@ -9,6 +9,7 @@
         <div id="search_form_container_line"></div>
 
         <form class="form" id="search_events_form" method="post"  autocomplete="off" [formGroup]="searchEventsForm">              
+            <label style="display: block;" class="required-field" >Keyword</label>
             <input type="text"
                     placeholder=""
                     matInput
@@ -25,15 +26,11 @@
             </ng-container>
             </mat-autocomplete>
                
-             
-              
-           
-
 
             <div id="distance_and_category_box" style="margin-top: 8px;">
 
                 <div id="distance">
-                    <label style="display: block;">Distance (miles)</label>
+                    <label style="display: block;" class="required-field" >Distance (miles)</label>
                     <input style="display: block; margin-top: 6px;" type="number" placeholder="10" id="radius" min="1"/>
                 </div>
 
