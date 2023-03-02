@@ -10,22 +10,28 @@ import { debounceTime, tap, switchMap, finalize, distinctUntilChanged, filter } 
 })
 export class EventSearchComponent implements OnInit{
 
+  segments: string[] = ['Default', 'Music', 'Sports', 'Arts & Theatre', 'Film', 'Miscellaneous'];
+  default: string = 'Default';
+
   searchEventsForm = new FormGroup({
       keyword: new FormControl(''),
       distance: new FormControl(10),
-      location: new FormControl(''),
-      segment: new FormControl()
+      location: new FormControl(null),
+      segment: new FormControl('')
   });
 
   filteredEvents: any;
   isLoading = false;
   errorMsg!: string;
-  minLengthTerm = 1;
+  minLengthTerm = 2;
   selectedEvent: any = "";
+  defaultSegment: any = "Default";
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) { 
+    this.searchEventsForm.controls['segment'].setValue(this.defaultSegment, {onlySelf: true});
+  }
 
 
   onSelected() {
@@ -73,5 +79,12 @@ export class EventSearchComponent implements OnInit{
           this.filteredEvents = data['events'];
         }
       });
+  }
+
+
+  //function to clear search
+  clearSearchForm() {
+    this.searchEventsForm.reset();
+    this.searchEventsForm.controls['segment'].setValue(this.defaultSegment, {onlySelf: true});
   }
 }

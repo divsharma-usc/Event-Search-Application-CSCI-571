@@ -30,22 +30,16 @@
             <div id="distance_and_category_box" style="margin-top: 8px;">
 
                 <div id="distance">
-                    <label style="display: block;" class="required-field" >Distance (miles)</label>
-                    <input style="display: block; margin-top: 6px;" type="number" placeholder="10" id="radius" min="1"/>
+                    <label style="display: block;" class="required-field">Distance (miles)</label>
+                    <input style="display: block; margin-top: 6px;" type="number" placeholder="10" id="radius" min="1" formControlName="distance"/>
                 </div>
 
                 <div id ="category_box">
                     <label style="display: block;" class="required-field">Category</label>
-                    <select style="display: block; margin-top: 6px;" name="category" id="category">
-                        <option value="default">Default</option>
-                        <option value="music">Music</option>
-                        <option value="sports">Sports</option>
-                        <option value="arts">Arts & Theatre</option>
-                        <option value="film">Film</option>
-                        <option value="miscellaneous">Miscellaneous</option>
+                    <select id="segment" formControlName="segment">
+                        <option *ngFor="let s of segments" [ngValue]="s">{{ s }}</option>
                     </select>
                 </div>
-
             </div>
 
             <div class="location_box"  style="margin-top: 8px;">
@@ -58,7 +52,7 @@
 
             <div id = "search_form_buttons_box">
                 <button id="submit_search_form" class="btn btn-danger">SEARCH</button>
-                <button id="clear_search_form" class="btn btn-primary">CLEAR</button>
+                <button id="clear_search_form" (click)="clearSearchForm()"class="btn btn-primary">CLEAR</button>
             </div>
 
         </form>
