@@ -1,13 +1,3 @@
-#container{
-    background-image: url('../assets/background.jpg');
-    height: 100vh;
-    width: 100vw;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    -webkit-font-smoothing: antialiased;
-}
-
 #container ul{
     background-color: none;
     display: flex;

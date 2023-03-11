@@ -3,11 +3,33 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { debounceTime, tap, switchMap, finalize, distinctUntilChanged, filter } from 'rxjs/operators';
 
+interface EventInformation {
+  id: string;
+	date: string;
+  time: string;
+	imageSrc: string;
+	name: string;
+  genre: string;
+  venue: string;
+}
+
+interface EventDetails{
+  eventName: string;
+  eventDate: string;
+  priceRange: string;
+  artistOrTeam: string;
+  venueName: string;
+  genres: string;
+  ticketStatus: string;
+  buyTicketAt: string;
+}
+
 @Component({
     selector: 'event-search',
     templateUrl: './event-search.component.html',
     styleUrls: ['./event-search.component.css']
 })
+
 export class EventSearchComponent implements OnInit{
 
   segments: string[] = ['Default', 'Music', 'Sports', 'Arts & Theatre', 'Film', 'Miscellaneous'];
@@ -27,6 +49,10 @@ export class EventSearchComponent implements OnInit{
   minLengthTerm = 2;
   selectedEvent: any = "";
   defaultSegment: any = "Default";
+  eventsInformation: EventInformation[] = [];
+  showTable: boolean = false;
+  showDetails: boolean = false;
+  eventDetails: any;
 
   constructor(
     private http: HttpClient
@@ -85,6 +111,7 @@ export class EventSearchComponent implements OnInit{
 
   //function to clear search
   clearSearchForm() {
+    this.showTable = false;
     this.selectedEvent = '';
     this.filteredEvents = [];
     this.searchEventsForm.reset();
@@ -114,5 +141,78 @@ export class EventSearchComponent implements OnInit{
       locationInput.reportValidity();
       return
     }
+
+    if(autoDetectValue){
+      const ipInfoUrl = "https://ipinfo.io/json?token=92e4bc4d0d35b9";
+      this.http.get(ipInfoUrl)
+      .subscribe((data: any) => {
+          this.populateEventInformationTable(data.loc)
+      });      
+    }else{
+      const location = this.searchEventsForm.get('location')?.value;
+      const googleMapUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+ location +"&key=AIzaSyBaoCSxxIZsLw1C_Wxn7foPJaU7GtnhdDk";
+      this.http.get(googleMapUrl)
+      .subscribe((data: any) => {
+          this.populateEventInformationTable(data.results[0].geometry.location.lat + ',' + data.results[0].geometry.location.lng);
+      });
+    }
+  }
+
+  populateEventInformationTable(geolocation: any){
+
+    const keyword = this.searchEventsForm.get('keyword')?.value;
+    const location = this.searchEventsForm.get('location')?.value;
+    const segment = this.searchEventsForm.get('segment')?.value;
+    const distance = this.searchEventsForm.get('distance')?.value;
+
+    var url = 'https://proven-entropy-376123.wl.r.appspot.com/events?' + 'keyword=' + keyword + '&radius=' + distance + '&segment=' + segment + '&geoPoint=' + geolocation
+
+    this.http.get(url)
+    .subscribe((data: any)=>{
+      console.log(data)
+        this.eventsInformation = [];
+        data.forEach((element: any) => {
+          this.eventsInformation.push({
+            id: element.id,
+            date: element.localDate,
+            time: element.localTime,
+            imageSrc: element.image_url,
+            name: element.name,
+            genre: element.genre,
+            venue: element.venue
+          } as EventInformation);
+          this.showTable = true;
+        });
+    });
+  }
+
+  showEventDetails(id: string){
+    console.log(id);
+    var url = 'https://localhost:3000/events/' + id;
+
+    this.http.get(url)
+    .subscribe((data: any) => {
+      console.log(data)
+
+      this.eventDetails = {
+        eventName: data.name,
+        eventDate: data.eventDate,
+        priceRange: data.priceRange,
+        artistOrTeam: data.artistOrTeam,
+        venueName: data.venueName,
+        genres: data.genres,
+        ticketStatus: data.ticketStatus,
+        buyTicketAt: data.buyTicketAt
+      } as EventDetails;
+
+      this.showTable = false;
+      this.showDetails = true;
+    });
+
+  }
+
+  back(){
+    this.showDetails = false;
+    this.showTable = true;
   }
 }
