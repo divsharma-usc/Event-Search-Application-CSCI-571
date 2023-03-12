@@ -91,8 +91,11 @@
 
     <!-- Event Details -->
     <div *ngIf="showDetails" id="showEventDetails">
-        <button (click)="back()">Back</button>
-        <div>
+        <button (click)="back()" class="back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+            </svg>Back</button>
+        <div id="eventNameHeading">
             <p>{{eventDetails.eventName}}</p>
             <button ngClass="heart-button" (click)="addOrRemoveFromFavorites(eventDetails.id, eventDetails.eventDate, eventDetails.genres, eventDetails.venue, eventDetails.eventName)">
                 <svg *ngIf="isIdNotInFavorites(eventDetails.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-heart" viewBox="0 0 16 16">
@@ -118,12 +121,16 @@
                         <label>Price Ranges</label>
                         <div>{{eventDetails.priceRange}}</div>
                         <label>Ticket Status</label>
-                        <div>{{eventDetails.ticketStatus}}</div>
+                        <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='onsale'" style="background-color: green;">On Sale</div>
+                        <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='offsale'" style="background-color: red;">Sold Out</div>
+                        <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='cancelled'" style="background-color: black;">Cancelled</div>
+                        <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='rescheduled'" style="background-color: orange;">Rescheduled</div>
+                        <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='postponed'" style="background-color: orange;">Postponed</div>
                         <label>Buy Ticket At:</label>
                         <div><a href="{{eventDetails.buyTicketAt}}" target="">Ticketmaster</a></div>
                     </div>
                     <div id="rightContainer">
-                        <img src="eventDetails.seatMap">
+                        <img [src]="eventDetails.seatMap">
                     </div>
                 </div>
             </mat-tab>

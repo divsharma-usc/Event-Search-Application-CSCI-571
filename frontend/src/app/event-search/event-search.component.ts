@@ -23,6 +23,7 @@ interface EventDetails{
   genres: string;
   ticketStatus: string;
   buyTicketAt: string;
+  seatMap: string;
   id: string;
 }
 
@@ -114,6 +115,7 @@ export class EventSearchComponent implements OnInit{
   //function to clear search
   clearSearchForm() {
     this.showTable = false;
+    this.showDetails = false;
     this.selectedEvent = '';
     this.filteredEvents = [];
     this.searchEventsForm.reset();
@@ -205,6 +207,7 @@ export class EventSearchComponent implements OnInit{
         genres: data.genres,
         ticketStatus: data.ticketStatus,
         buyTicketAt: data.buyTicketAt,
+        seatMap: data.seatMap,
         id: id
       } as EventDetails;
 
