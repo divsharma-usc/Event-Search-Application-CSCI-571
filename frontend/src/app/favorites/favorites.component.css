@@ -1,3 +1,19 @@
-p{
-    color: white;
+th, td{
+    text-align: center;
+    font-size: 14px;
+}
+
+tr:hover{
+    background-color: #e6e9ec;
+}
+
+table{
+    margin-top: 40px;
+    background-color: white;
+    border-radius: 0.5em;
+    border: none;
+}
+
+.delete-icon:hover{
+    cursor: pointer;
 }

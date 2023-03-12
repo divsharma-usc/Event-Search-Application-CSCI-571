@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { debounceTime, tap, switchMap, finalize, distinctUntilChanged, filter } from 'rxjs/operators';
+import { getLocaleNumberSymbol } from '@angular/common';
 
 interface EventInformation {
   id: string;
@@ -18,10 +19,11 @@ interface EventDetails{
   eventDate: string;
   priceRange: string;
   artistOrTeam: string;
-  venueName: string;
+  venue: string;
   genres: string;
   ticketStatus: string;
   buyTicketAt: string;
+  id: string;
 }
 
 @Component({
@@ -188,7 +190,7 @@ export class EventSearchComponent implements OnInit{
 
   showEventDetails(id: string){
     console.log(id);
-    var url = 'https://localhost:3000/events/' + id;
+    var url = 'http://localhost:3000/events/' + id;
 
     this.http.get(url)
     .subscribe((data: any) => {
@@ -199,10 +201,11 @@ export class EventSearchComponent implements OnInit{
         eventDate: data.eventDate,
         priceRange: data.priceRange,
         artistOrTeam: data.artistOrTeam,
-        venueName: data.venueName,
+        venue: data.venueName,
         genres: data.genres,
         ticketStatus: data.ticketStatus,
-        buyTicketAt: data.buyTicketAt
+        buyTicketAt: data.buyTicketAt,
+        id: id
       } as EventDetails;
 
       this.showTable = false;
@@ -214,5 +217,51 @@ export class EventSearchComponent implements OnInit{
   back(){
     this.showDetails = false;
     this.showTable = true;
+  }
+
+  addOrRemoveFromFavorites(id: any, date: any, genres: any, venue: any, name: any){
+    console.log(venue)
+    const data: any = localStorage.getItem("favorites");
+    let favorites = JSON.parse(data);
+    console.log(id)
+    if(favorites && id in favorites){
+      delete favorites[id]; 
+    }else if(favorites!=undefined || favorites!=null){
+        favorites[id] = {
+            "date": date,
+            "genres": genres,
+            "venue": venue,
+            "name": name
+          };
+    }else{
+      favorites = {};
+      favorites[id] = {
+        "date": date,
+        "genres": genres,
+        "venue": venue,
+        "name": name
+      };
+    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }
+
+  isIdInFavorites(id: any){
+    const data: any = localStorage.getItem("favorites");
+    let favorites = JSON.parse(data);
+    if(favorites && id in favorites){
+      return true
+    }else{
+      return false;
+    }
+  }
+
+  isIdNotInFavorites(id: any){
+    const data: any = localStorage.getItem("favorites");
+    let favorites = JSON.parse(data);
+    if(favorites && id in favorites){
+      return false
+    }else{
+      return true;
+    }
   }
 }
