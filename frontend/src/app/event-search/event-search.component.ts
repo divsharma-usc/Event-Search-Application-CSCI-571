@@ -167,13 +167,16 @@ export class EventSearchComponent implements OnInit{
     const keyword = this.searchEventsForm.get('keyword')?.value;
     const location = this.searchEventsForm.get('location')?.value;
     const segment = this.searchEventsForm.get('segment')?.value;
-    const distance = this.searchEventsForm.get('distance')?.value;
+    var  distance = this.searchEventsForm.get('distance')?.value;
+
+    if(distance==null){
+      distance=10;
+    }
 
     var url = 'https://proven-entropy-376123.wl.r.appspot.com/events?' + 'keyword=' + keyword + '&radius=' + distance + '&segment=' + segment + '&geoPoint=' + geolocation
 
     this.http.get(url)
     .subscribe((data: any)=>{
-      console.log(data)
         this.eventsInformation = [];
         data.forEach((element: any) => {
           this.eventsInformation.push({
@@ -191,7 +194,6 @@ export class EventSearchComponent implements OnInit{
   }
 
   showEventDetails(id: string){
-    console.log(id);
     var url = 'http://localhost:3000/events/' + id;
 
     this.http.get(url)
@@ -223,10 +225,8 @@ export class EventSearchComponent implements OnInit{
   }
 
   addOrRemoveFromFavorites(id: any, date: any, genres: any, venue: any, name: any){
-    console.log(venue)
     const data: any = localStorage.getItem("favorites");
     let favorites = JSON.parse(data);
-    console.log(id)
     if(favorites && id in favorites){
       delete favorites[id]; 
     }else if(favorites!=undefined || favorites!=null){

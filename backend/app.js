@@ -238,6 +238,9 @@ app.get('/events/:eventId', (req, res) => {
             }
 
         } catch (err) {}
+
+        console.log(response)
+        console.log(standard_price)
     
         let local_date = '';
         let local_time = '';
