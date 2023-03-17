@@ -110,33 +110,85 @@
             <mat-tab label="Events">
                 <div id="outterContainer">
                     <div id="leftContainer">
-                        <label>Date</label>
-                        <div>{{eventDetails.eventDate}}</div>
-                        <label>Artist/Team</label>
-                        <div>{{eventDetails.artistOrTeam}}</div>
-                        <label>Venue</label>
-                        <div>{{eventDetails.venue}}</div>
-                        <label>Genres</label>
-                        <div>{{eventDetails.genres}}</div>
-                        <label>Price Ranges</label>
-                        <div>{{eventDetails.priceRange}}</div>
-                        <label>Ticket Status</label>
+                        <label *ngIf="eventDetails.eventDate && eventDetails.eventDate.length > 0">Date</label>
+                        <div *ngIf="eventDetails.eventDate && eventDetails.eventDate.length > 0">{{eventDetails.eventDate}}</div>
+                        <label *ngIf="eventDetails.artistOrTeam && eventDetails.artistOrTeam.length > 0">Artist/Team</label>
+                        <div *ngIf="eventDetails.artistOrTeam && eventDetails.artistOrTeam.length > 0">{{eventDetails.artistOrTeam}}</div>
+                        <label *ngIf="eventDetails.venue && eventDetails.venue.length > 0">Venue</label>
+                        <div *ngIf="eventDetails.venue && eventDetails.venue.length > 0">{{eventDetails.venue}}</div>
+                        <label *ngIf="eventDetails.genres && eventDetails.genres.length > 0">Genres</label>
+                        <div *ngIf="eventDetails.genres && eventDetails.genres.length > 0">{{eventDetails.genres}}</div>
+                        <label *ngIf="eventDetails.priceRange && eventDetails.priceRange.length > 0">Price Ranges</label>
+                        <div *ngIf="eventDetails.priceRange && eventDetails.priceRange.length > 0">{{eventDetails.priceRange}}</div>
+                        <label *ngIf="eventDetails.ticketStatus && eventDetails.ticketStatus.length > 0">Ticket Status</label>
                         <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='onsale'" style="background-color: green;">On Sale</div>
                         <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='offsale'" style="background-color: red;">Sold Out</div>
                         <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='cancelled'" style="background-color: black;">Cancelled</div>
                         <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='rescheduled'" style="background-color: orange;">Rescheduled</div>
                         <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='postponed'" style="background-color: orange;">Postponed</div>
-                        <label>Buy Ticket At:</label>
-                        <div><a href="{{eventDetails.buyTicketAt}}" target="">Ticketmaster</a></div>
+                        <label *ngIf="eventDetails.buyTicketAt && eventDetails.buyTicketAt.length > 0">Buy Ticket At:</label>
+                        <div *ngIf="eventDetails.buyTicketAt && eventDetails.buyTicketAt.length > 0"><a href="{{eventDetails.buyTicketAt}}" target="">Ticketmaster</a></div>
                     </div>
                     <div id="rightContainer">
                         <img [src]="eventDetails.seatMap">
                     </div>
                 </div>
+                <div>
+                    <a class="btn btn-small" href]="getTwitterURL()" ><i class="fa fa-twitter" aria-hidden="true" style="height: 30px; width:30px; color:black"></i></a>
+                    <a class="twitter-share-button" href="" target="_blank">Tweet</a>
+                </div>
             </mat-tab>
 
             <mat-tab label="Artist/Teams"> Content 2 </mat-tab>
-            <mat-tab label="Venue"> Content 3 </mat-tab>
+            
+            
+            <mat-tab label="Venue"> 
+                <div id="outterContainerVenueDetails">
+                    <div id="innerLeftContainerVenueDetails">
+                        <label>Name</label>
+                        <div>{{venueDetails.name}}</div>
+                        <label>Address</label>
+                        <div>{{venueDetails.address}}</div>
+                        <label>Phone Number</label>
+                        <div>{{venueDetails.phoneNumber}}</div>
+                    </div>
+                    <div id="innerRightContainerVenueDetails">
+                        <label>Open Hours</label>
+                        <div>
+                            <p [ngClass]="{'limitTextHeight': readMoreOpenHours}">{{venueDetails.openHours}}</p>
+                            <a href="javascript:;" *ngIf="readMoreOpenHours" (click)="togleReadMoreOpenHours()"> Read More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                            </svg></a>
+                            <a href="javascript:;" *ngIf="!readMoreOpenHours" (click)="togleReadMoreOpenHours()">Read Less <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                              </svg></a>
+                        </div>
+                        <label>General Rule</label>
+                        <div>
+                            <p [ngClass]="{'limitTextHeight': readMoreGeneralRule}">{{venueDetails.generalRule}}</p>
+                            <a href="javascript:;" *ngIf="readMoreGeneralRule" (click)="toggleReadMoreGeneralRule()"> Read More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                            </svg></a>
+                            <a href="javascript:;" *ngIf="!readMoreGeneralRule" (click)="toggleReadMoreGeneralRule()">Read Less <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                              </svg></a>
+                        </div>
+                        <label>Child Rule</label>
+                        <div>
+                            <p [ngClass]="{'limitTextHeight': readMoreChildRule}">{{venueDetails.childRule}}</p>
+                            <a href="javascript:;" *ngIf="readMoreChildRule" (click)="toggleReadMoreChildRule()"> Read More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                            </svg></a>
+                            <a href="javascript:;" *ngIf="!readMoreChildRule" (click)="toggleReadMoreChildRule()">Read Less <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                              </svg></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottonFooter">
+                    <button class="btn btn-danger" (click)="open()">Launch demo modal</button>
+                </div>
+            </mat-tab>
         </mat-tab-group>
     </div>
 </div>

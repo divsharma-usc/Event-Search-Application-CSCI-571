@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { debounceTime, tap, switchMap, finalize, distinctUntilChanged, filter } from 'rxjs/operators';
 import { getLocaleNumberSymbol } from '@angular/common';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GmapComponent } from '../gmap/gmap.component';
 
 interface EventInformation {
   id: string;
@@ -25,6 +27,15 @@ interface EventDetails{
   buyTicketAt: string;
   seatMap: string;
   id: string;
+}
+
+interface VenueDetails{
+  name: string;
+  address: string;
+  phoneNumber: string;
+  openHours: string;
+  generalRule: string;
+  childRule: string;
 }
 
 @Component({
@@ -56,9 +67,19 @@ export class EventSearchComponent implements OnInit{
   showTable: boolean = false;
   showDetails: boolean = false;
   eventDetails: any;
+  venueDetails: any;
+  readMoreChildRule: boolean = true;
+  readMoreGeneralRule: boolean = true;
+  readMoreOpenHours: boolean = true;
+  showReadChildRule: boolean = false;
+  showReadGeneralRule: boolean = false;
+  showOpenHours: boolean = false;
+  mapOptions: any;
+  marker: any;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private modalService: NgbModal
   ) { 
     this.searchEventsForm.controls['segment'].setValue(this.defaultSegment, {onlySelf: true});
   }
@@ -198,7 +219,6 @@ export class EventSearchComponent implements OnInit{
 
     this.http.get(url)
     .subscribe((data: any) => {
-      console.log(data)
 
       this.eventDetails = {
         eventName: data.name,
@@ -215,8 +235,27 @@ export class EventSearchComponent implements OnInit{
 
       this.showTable = false;
       this.showDetails = true;
-    });
 
+
+      var venue_url = 'http://localhost:3000/venue?venue=' + this.eventDetails.venue;
+      this.http.get(venue_url)
+      .subscribe((data: any) => {
+        console.log(data)
+        this.venueDetails = {
+          name: data.name,
+          address: data.address,
+          phoneNumber: data.phoneNumber,
+          openHours: data.openHours,
+          generalRule: data.generalRule,
+          childRule: data.childRule
+        } as VenueDetails;
+        this.mapOptions = {
+          center: { lat: parseFloat(data.latitude), lng: parseFloat(data.longitude)},
+          zoom: 14
+        };
+        this.marker = { position: { lat: parseFloat(data.latitude), lng: parseFloat(data.longitude)} };
+      });
+    });
   }
 
   back(){
@@ -266,5 +305,25 @@ export class EventSearchComponent implements OnInit{
     }else{
       return true;
     }
+  }
+
+  togleReadMoreOpenHours(){
+    this.readMoreOpenHours = !this.readMoreOpenHours;
+  }
+  toggleReadMoreChildRule(){
+    this.readMoreChildRule = !this.readMoreChildRule;
+  }
+  toggleReadMoreGeneralRule(){
+    this.readMoreGeneralRule= !this.readMoreGeneralRule;
+  }
+
+  open() {
+		const modalRef = this.modalService.open(GmapComponent);
+		modalRef.componentInstance.mapOptions = this.mapOptions;
+    modalRef.componentInstance.marker = this.marker;
+	}
+
+  getTwitterURL(text: any, url: any){
+
   }
 }

@@ -1,0 +1,10 @@
+.modal-footer{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.modal-footer button{
+    background-color: black;
+    color: white;
+}
+  

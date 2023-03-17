@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
+import { GoogleMapsModule } from '@angular/google-maps'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,12 +19,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { EventSearchComponent } from './event-search/event-search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GmapComponent } from './gmap/gmap.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FavoritesComponent,
-    EventSearchComponent
+    EventSearchComponent,
+    GmapComponent
   ],
   imports: [
     BrowserModule,
@@ -38,9 +41,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatTabsModule,
-    MatTableModule
+    MatTableModule,
+    GoogleMapsModule
   ],
-  providers: [],
+  providers: [GmapComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

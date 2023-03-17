@@ -2,13 +2,28 @@ const express = require('express')
 const cors = require('cors')
 const axios = require('axios');
 const geohash = require('ngeohash');
-const app = express();
+var SpotifyWebApi = require('spotify-web-api-node');
+const { json } = require('express');
 const port = 3000;
+var bodyParser = require('body-parser')
+var app = express()
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 const REMOTE_API_URI = "https://app.ticketmaster.com/discovery/v2";
 const REMOTE_API_KEY = "Swp5VSdz4nQJk5B9NoeMAMG7r8jMviKo";
 const UNDEFINED = "undefined";
 const REMOTE_API_PAGE_SIZE = 20;
+
+var spotifyApi = new SpotifyWebApi({
+    clientId: '60ae4067a5ed494aad974907a7e3ca42',
+    clientSecret: 'ad6ee9e48bc54a5caf9297f29c183137',
+    redirectUri: 'http://mysite.com/callback/'
+});
 
 app.use(cors());
 
@@ -238,9 +253,6 @@ app.get('/events/:eventId', (req, res) => {
             }
 
         } catch (err) {}
-
-        console.log(response)
-        console.log(standard_price)
     
         let local_date = '';
         let local_time = '';
@@ -351,6 +363,113 @@ app.get('/events/:eventId', (req, res) => {
     });
 
 });
+
+
+/*******  API TO GET Artists EVENTS  *********/
+app.post('/spotify', (req, res) => {
+    var artists = req.body['artists'];
+    artists = artists.split("|");
+    console.log(artists)
+    spotifyApi.getArtist(artists[0])
+        .then(function(data) {
+            console.log('Artist information', data.body);
+        }, function(err) {
+            console.error(err);
+        });
+    res.send('Hello');
+});
+
+
+/*******  API TO GET Venue Details  *********/
+app.get('/venue', (req, res) => {
+    var venue = req.query['venue'];
+    const remote_api_url = REMOTE_API_URI + "/venues?apikey=" + REMOTE_API_KEY + "&keyword=" + venue;
+    
+    axios.get(remote_api_url)
+    .then(function(response){
+        response_data = response.data;
+
+        var childRule = undefined;
+        var openHours = undefined;
+        var phoneNumber = undefined;
+        var name = undefined;
+        var generalRule = undefined;
+        var longitude = undefined;
+        var latitude = undefined;
+        var address_array = [];
+
+        const venue = response_data['_embedded']['venues'][0]
+
+        try{
+            name = venue['name']
+        }catch(error){console.log(error)}
+
+        try{
+            if(venue['address'] != undefined && venue['address']['line1'] != undefined){
+                address_array.push(venue['address']['line1']);
+            }
+        }catch(error){console.log(error)}
+
+        try{
+            if(venue['city'] != undefined && venue['city']['name'] != undefined){
+                address_array.push(venue['city']['name']);
+            }
+        }catch(error){console.log(error)}
+
+        try{
+            if(venue['state'] != undefined && venue['state']['stateCode'] != undefined){
+                address_array.push(venue['state']['stateCode']);
+            }
+        }catch(error){console.log(error)}
+
+        console.log(address_array);
+        const address = address_array.join(', ');
+    
+        try{
+            phoneNumber = venue['boxOfficeInfo']['phoneNumberDetail'];
+        }catch(error){console.log(error)}
+
+        try{
+            openHours = venue['boxOfficeInfo']['openHoursDetail'];
+        }catch(error){console.log(error)}
+        try{
+            childRule = venue['generalInfo']['childRule'];
+        }catch(error){console.log(error)}
+        try{
+            generalRule = venue['generalInfo']['generalRule'];
+        }catch(error){console.log(error)}
+        try{
+            longitude = venue['location']['longitude'];
+        }catch(error){console.log(error)}
+        try{
+            latitude = venue['location']['latitude'];
+        }catch(error){console.log(error)}
+
+
+        let response_to_send = {
+            'name': name,
+            'address': address,
+            'phoneNumber': phoneNumber,
+            'openHours': openHours,
+            'generalRule': generalRule,
+            'childRule': childRule,
+            'longitude': longitude,
+            'latitude': latitude
+        };
+
+        res.send(response_to_send);
+    }).catch(function(error){
+        console.log(error)
+        res.send({
+            "status": 500,
+            "message": "Internal Server Error"
+        });
+    });
+    
+});
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
