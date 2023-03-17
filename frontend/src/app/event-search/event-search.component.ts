@@ -324,6 +324,10 @@ export class EventSearchComponent implements OnInit{
 	}
 
   getTwitterURL(text: any, url: any){
+    return "https://twitter.com/intent/tweet?source=tweetbutton&url= " + url + "&text=Check " + text + "on Ticketmaster.";
+  }
 
+  getFBURL(url: any){
+    return "https://www.facebook.com/sharer/sharer.php?u=" + url + ";src=sdkpreparse"
   }
 }

@@ -33,11 +33,11 @@
 #search_form_container #search_form_container_line{
     height: 1px;
     background-color: #e8e8e8;
-    width: 570px;
+    width: 90%;
 }
 
 #search_form_container #search_events_form{
-    width: 570px;
+    width: 90%;
     margin-top: 10px;
 }
 
@@ -316,4 +316,61 @@ table{
     justify-content: center;
     font-size: 13px;
     margin-bottom: 20px;
+}
+
+#socialIcons{
+    width: 100%;
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+#socialIcons a{
+    padding: 3px;
+}
+
+@media screen and (max-width: 620px) {
+
+    #outterBox{
+        min-width: 100%;
+    }
+    #search_form_container {
+      width: 100%;
+    }
+
+    #distance_and_category_box{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #search_form_container #search_events_form #distance_and_category_box #distance{
+        width: 100%;
+    }
+    
+    #search_form_container #search_events_form #distance_and_category_box #distance #radius{
+        width: 100%;
+    }
+
+    #search_form_container #search_events_form #distance_and_category_box #category_box{
+        width: 100%;
+    }
+
+    #showEventDetails{
+        width: 100%;
+    }
+
+    #outterContainer{
+        flex-direction: column;
+    }
+    
+    #leftContainer{
+        width: 100%;
+    }
+
+    #rightContainer{
+        margin-top: 25px;
+        width: 100%;
+    }
 }
