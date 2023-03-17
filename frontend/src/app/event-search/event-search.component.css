@@ -331,6 +331,10 @@ table{
     padding: 3px;
 }
 
+table{
+    width: 70%;
+}
+
 @media screen and (max-width: 620px) {
 
     #outterBox{
@@ -371,6 +375,10 @@ table{
 
     #rightContainer{
         margin-top: 25px;
+        width: 100%;
+    }
+
+    .table{
         width: 100%;
     }
 }

@@ -150,16 +150,16 @@
             <mat-tab label="Venue"> 
                 <div id="outterContainerVenueDetails">
                     <div id="innerLeftContainerVenueDetails">
-                        <label>Name</label>
-                        <div>{{venueDetails.name}}</div>
-                        <label>Address</label>
-                        <div>{{venueDetails.address}}</div>
-                        <label>Phone Number</label>
-                        <div>{{venueDetails.phoneNumber}}</div>
+                        <label *ngIf="venueDetails.name != undefined && venueDetails.name.length > 0">Name</label>
+                        <div *ngIf="venueDetails.name != undefined && venueDetails.name.length > 0">{{venueDetails.name}}</div>
+                        <label *ngIf="venueDetails.address != undefined && venueDetails.address.length > 0">Address</label>
+                        <div *ngIf="venueDetails.address != undefined && venueDetails.address.length > 0">{{venueDetails.address}}</div>
+                        <label *ngIf="venueDetails.phoneNumber != undefined && venueDetails.phoneNumber.length > 0">Phone Number</label>
+                        <div *ngIf="venueDetails.phoneNumber != undefined && venueDetails.phoneNumber.length > 0">{{venueDetails.phoneNumber}}</div>
                     </div>
                     <div id="innerRightContainerVenueDetails">
-                        <label>Open Hours</label>
-                        <div>
+                        <label *ngIf="venueDetails.openHours != undefined && venueDetails.openHours.length > 0">Open Hours</label>
+                        <div *ngIf="venueDetails.openHours != undefined && venueDetails.openHours.length > 0">
                             <p [ngClass]="{'limitTextHeight': readMoreOpenHours}">{{venueDetails.openHours}}</p>
                             <a href="javascript:;" *ngIf="readMoreOpenHours" (click)="togleReadMoreOpenHours()"> Read More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
@@ -168,8 +168,8 @@
                                 <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
                               </svg></a>
                         </div>
-                        <label>General Rule</label>
-                        <div>
+                        <label *ngIf="venueDetails.generalRule != undefined && venueDetails.generalRule.length > 0">General Rule</label>
+                        <div *ngIf="venueDetails.generalRule != undefined && venueDetails.generalRule.length > 0">
                             <p [ngClass]="{'limitTextHeight': readMoreGeneralRule}">{{venueDetails.generalRule}}</p>
                             <a href="javascript:;" *ngIf="readMoreGeneralRule" (click)="toggleReadMoreGeneralRule()"> Read More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
@@ -178,8 +178,8 @@
                                 <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
                               </svg></a>
                         </div>
-                        <label>Child Rule</label>
-                        <div>
+                        <label *ngIf="venueDetails.childRule != undefined && venueDetails.childRule.length > 0">Child Rule</label>
+                        <div *ngIf="venueDetails.childRule != undefined && venueDetails.childRule.length > 0">
                             <p [ngClass]="{'limitTextHeight': readMoreChildRule}">{{venueDetails.childRule}}</p>
                             <a href="javascript:;" *ngIf="readMoreChildRule" (click)="toggleReadMoreChildRule()"> Read More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
