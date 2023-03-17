@@ -4,9 +4,13 @@ const axios = require('axios');
 const geohash = require('ngeohash');
 var SpotifyWebApi = require('spotify-web-api-node');
 const { json } = require('express');
+var request = require('request');
 const port = 3000;
 var bodyParser = require('body-parser')
 var app = express()
+
+const CLIENT_ID = '60ae4067a5ed494aad974907a7e3ca42';
+const CLIENT_SECRET = 'ad6ee9e48bc54a5caf9297f29c183137';
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -20,8 +24,8 @@ const UNDEFINED = "undefined";
 const REMOTE_API_PAGE_SIZE = 20;
 
 var spotifyApi = new SpotifyWebApi({
-    clientId: '60ae4067a5ed494aad974907a7e3ca42',
-    clientSecret: 'ad6ee9e48bc54a5caf9297f29c183137',
+    clientId: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
     redirectUri: 'http://mysite.com/callback/'
 });
 
@@ -369,15 +373,60 @@ app.get('/events/:eventId', (req, res) => {
 app.post('/spotify', (req, res) => {
     var artists = req.body['artists'];
     artists = artists.split("|");
-    console.log(artists)
-    spotifyApi.getArtist(artists[0])
-        .then(function(data) {
-            console.log('Artist information', data.body);
-        }, function(err) {
-            console.error(err);
-        });
-    res.send('Hello');
+   
+    var client_id = CLIENT_ID;
+    var client_secret = CLIENT_SECRET;
+    var token = '';
+
+    var authOptions = {
+        url: 'https://accounts.spotify.com/api/token',
+        headers: {
+            'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+        },
+        form: {
+            grant_type: 'client_credentials'
+        },
+        json: true
+    };
+
+    response_body = [];
+    request.post(authOptions, async function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            token = body.access_token;
+            spotifyApi.setAccessToken(token);
+            for(var index in artists){
+                var artist = artists[index];
+                await spotifyApi.searchArtists(artist)
+                    .then(async function(data) {
+                        const art = data.body.artists.items[0];
+                        await spotifyApi.getArtistAlbums(art.id, { limit: 3, offset: 0}).then(
+                            function(data) {
+                                const albums = data.body.items;       
+                                const albumsImages = albums.map(item => item.images[0]);
+                                response_body.push({
+                                    "name": art.name,
+                                    "popularity": art.popularity,
+                                    "followers": art.followers.total,
+                                    "spotifyLink": art.href,
+                                    "artistImage": art.images[0].url,
+                                    "albumImages": albumsImages
+                                });
+                            },
+                            function(err) {
+                              console.error(err);
+                            }
+                          );
+                    }, function(err) {
+                        console.error(err);
+                    }
+                );
+            }
+            res.send(response_body);
+        }
+    });
+
 });
+
 
 
 /*******  API TO GET Venue Details  *********/
