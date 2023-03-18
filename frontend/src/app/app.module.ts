@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { GoogleMapsModule } from '@angular/google-maps'
+import { NgbCarouselConfig, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +21,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { EventSearchComponent } from './event-search/event-search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GmapComponent } from './gmap/gmap.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [
@@ -42,9 +44,23 @@ import { GmapComponent } from './gmap/gmap.component';
     MatProgressSpinnerModule,
     MatTabsModule,
     MatTableModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    NgbCarouselModule,
+    NgCircleProgressModule.forRoot({
+      radius: 25,
+      outerStrokeWidth: 8,
+      innerStrokeColor: "#c20030",
+      animationDuration: 300,
+      showSubtitle: false,
+      units: '',
+      titleColor: '#FFFFFF',
+      showInnerStroke: false,
+      titleFontSize: '14',
+      outerStrokeColor: '#c20030'
+    })
   ],
-  providers: [GmapComponent],
+  providers: [GmapComponent,
+    NgbCarouselConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -398,6 +398,7 @@ app.post('/spotify', (req, res) => {
                 var artist = artists[index];
                 await spotifyApi.searchArtists(artist)
                     .then(async function(data) {
+                        //console.log(data.body.artists.items[0])
                         const art = data.body.artists.items[0];
                         await spotifyApi.getArtistAlbums(art.id, { limit: 3, offset: 0}).then(
                             function(data) {
@@ -407,7 +408,7 @@ app.post('/spotify', (req, res) => {
                                     "name": art.name,
                                     "popularity": art.popularity,
                                     "followers": art.followers.total,
-                                    "spotifyLink": art.href,
+                                    "spotifyLink": art.external_urls.spotify,
                                     "artistImage": art.images[0].url,
                                     "albumImages": albumsImages
                                 });

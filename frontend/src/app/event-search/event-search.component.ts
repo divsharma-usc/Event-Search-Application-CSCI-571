@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { debounceTime, tap, switchMap, finalize, distinctUntilChanged, filter } from 'rxjs/operators';
-import { getLocaleNumberSymbol } from '@angular/common';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GmapComponent } from '../gmap/gmap.component';
+import { NgbCarouselConfig, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 
 interface EventInformation {
   id: string;
@@ -76,12 +76,14 @@ export class EventSearchComponent implements OnInit{
   showOpenHours: boolean = false;
   mapOptions: any;
   marker: any;
+  artists: any = [];
 
   constructor(
     private http: HttpClient,
     private modalService: NgbModal
   ) { 
     this.searchEventsForm.controls['segment'].setValue(this.defaultSegment, {onlySelf: true});
+   
   }
 
 
@@ -240,7 +242,6 @@ export class EventSearchComponent implements OnInit{
       var venue_url = 'http://localhost:3000/venue?venue=' + this.eventDetails.venue;
       this.http.get(venue_url)
       .subscribe((data: any) => {
-        console.log(data)
         this.venueDetails = {
           name: data.name,
           address: data.address,
@@ -254,6 +255,13 @@ export class EventSearchComponent implements OnInit{
           zoom: 14
         };
         this.marker = { position: { lat: parseFloat(data.latitude), lng: parseFloat(data.longitude)} };
+      });
+
+
+      var artists_url = 'http://localhost:3000/spotify';
+      this.http.post(artists_url, {"artists": data.artistOrTeam})
+      .subscribe((data: any)=>{
+        this.artists = data
       });
     });
   }
