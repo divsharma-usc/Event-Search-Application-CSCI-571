@@ -393,30 +393,64 @@ app.post('/spotify', (req, res) => {
     request.post(authOptions, async function(error, response, body) {
         if (!error && response.statusCode === 200) {
             token = body.access_token;
+
+            if(token == undefined || token.length == 0){
+                res.send({
+                    "status": 500,
+                    "message": "Internal Server Error"
+                });
+            }
+
             spotifyApi.setAccessToken(token);
+
             for(var index in artists){
+
                 var artist = artists[index];
+
                 await spotifyApi.searchArtists(artist)
                     .then(async function(data) {
-                        //console.log(data.body.artists.items[0])
-                        const art = data.body.artists.items[0];
-                        await spotifyApi.getArtistAlbums(art.id, { limit: 3, offset: 0}).then(
-                            function(data) {
-                                const albums = data.body.items;       
-                                const albumsImages = albums.map(item => item.images[0]);
-                                response_body.push({
-                                    "name": art.name,
-                                    "popularity": art.popularity,
-                                    "followers": art.followers.total,
-                                    "spotifyLink": art.external_urls.spotify,
-                                    "artistImage": art.images[0].url,
-                                    "albumImages": albumsImages
-                                });
-                            },
-                            function(err) {
-                              console.error(err);
-                            }
-                          );
+                        try{
+                            const art = data.body.artists.items[0];
+                            await spotifyApi.getArtistAlbums(art.id, { limit: 3, offset: 0}).then(
+                                function(data) {     
+                                    var albumImages;
+                                    var albums;
+                                    var artistImage;
+                                    var followers;
+                                    var spotifyLink;
+
+                                    try{ 
+                                        albums = data.body.items; 
+                                        albumImages = albums.map(item => item.images[0]);
+                                    }catch(err){}
+
+                                    try{
+                                        artistImage = art.images[0].url;
+                                    }catch(err){}
+
+                                    try{
+                                        followers = art.followers.total;
+                                    }catch(err){}
+
+                                    try{
+                                        spotifyLink = art.external_urls.spotify;
+                                    }catch(err){}
+
+                                    response_body.push({
+                                        "name": art.name,
+                                        "popularity": art.popularity,
+                                        "followers": followers,
+                                        "spotifyLink": spotifyLink,
+                                        "artistImage": artistImage,
+                                        "albumImages": albumImages
+                                    });
+
+                                },
+                                function(err) {
+                                    console.error(err);
+                                }
+                            );
+                        }catch(err){}
                     }, function(err) {
                         console.error(err);
                     }
