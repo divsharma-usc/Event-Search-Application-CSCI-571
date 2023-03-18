@@ -9,6 +9,8 @@ const port = 3000;
 var bodyParser = require('body-parser')
 var app = express()
 
+const PORT = process.env.PORT || 8080;
+
 const CLIENT_ID = '60ae4067a5ed494aad974907a7e3ca42';
 const CLIENT_SECRET = 'ad6ee9e48bc54a5caf9297f29c183137';
 
@@ -555,6 +557,6 @@ app.get('/venue', (req, res) => {
 
 
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`)
 });

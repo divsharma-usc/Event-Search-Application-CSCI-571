@@ -46,7 +46,7 @@ interface VenueDetails{
 
 export class EventSearchComponent implements OnInit{
 
-  remoteHost: string = "http://localhost:3000/";
+  remoteHost: string = "https://backend-dot-proven-entropy-376123.wl.r.appspot.com/";
 
   segments: string[] = ['Default', 'Music', 'Sports', 'Arts & Theatre', 'Film', 'Miscellaneous'];
   default: string = 'Default';
@@ -198,7 +198,7 @@ export class EventSearchComponent implements OnInit{
       distance=10;
     }
 
-    var url = 'https://proven-entropy-376123.wl.r.appspot.com/events?' + 'keyword=' + keyword + '&radius=' + distance + '&segment=' + segment + '&geoPoint=' + geolocation
+    var url =  this.remoteHost +'events?' + 'keyword=' + keyword + '&radius=' + distance + '&segment=' + segment + '&geoPoint=' + geolocation
 
     this.http.get(url)
     .subscribe((data: any)=>{
