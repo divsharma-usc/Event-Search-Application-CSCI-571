@@ -46,6 +46,8 @@ interface VenueDetails{
 
 export class EventSearchComponent implements OnInit{
 
+  remoteHost: string = "http://localhost:3000/";
+
   segments: string[] = ['Default', 'Music', 'Sports', 'Arts & Theatre', 'Film', 'Miscellaneous'];
   default: string = 'Default';
 
@@ -115,7 +117,7 @@ export class EventSearchComponent implements OnInit{
           this.filteredEvents = [];
           this.isLoading = true;
         }),
-        switchMap(value => this.http.get('http://localhost:3000/suggest?keyword=' + value)
+        switchMap(value => this.http.get(this.remoteHost + '/suggest?keyword=' + value)
           .pipe(
             finalize(() => {
               this.isLoading = false
@@ -217,7 +219,7 @@ export class EventSearchComponent implements OnInit{
   }
 
   showEventDetails(id: string){
-    var url = 'http://localhost:3000/events/' + id;
+    var url = this.remoteHost + 'events/' + id;
 
     this.http.get(url)
     .subscribe((data: any) => {
@@ -239,7 +241,7 @@ export class EventSearchComponent implements OnInit{
       this.showDetails = true;
 
 
-      var venue_url = 'http://localhost:3000/venue?venue=' + this.eventDetails.venue;
+      var venue_url = this.remoteHost + '/venue?venue=' + this.eventDetails.venue;
       this.http.get(venue_url)
       .subscribe((data: any) => {
         this.venueDetails = {
@@ -258,7 +260,7 @@ export class EventSearchComponent implements OnInit{
       });
 
 
-      var artists_url = 'http://localhost:3000/spotify';
+      var artists_url = this.remoteHost + 'spotify';
       this.http.post(artists_url, {"artists": data.artistOrTeam})
       .subscribe((data: any)=>{
         this.artists = data
