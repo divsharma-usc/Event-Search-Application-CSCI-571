@@ -9,7 +9,6 @@ export class FavoritesComponent implements OnInit{
   favorites: any = [];
   displayedColumns: string[] = ['#', 'date', 'name', 'category', 'venue', 'favorite'];
 
-
   ngOnInit() {
     var data: any = localStorage.getItem("favorites");
     data = JSON.parse(data);
@@ -21,7 +20,6 @@ export class FavoritesComponent implements OnInit{
   }
 
   deleteFav(id: any){
-    console.log(id)
     var data: any = localStorage.getItem("favorites");
     data = JSON.parse(data);
     delete data[id];
@@ -31,6 +29,16 @@ export class FavoritesComponent implements OnInit{
       var fav_to_enter = data[key]
       fav_to_enter['id'] = key
       this.favorites.push(fav_to_enter);
+    }
+  }
+
+  showFav(){
+    var data: any = localStorage.getItem("favorites");
+    data = JSON.parse(data);
+    if(data != undefined && Object.keys(data).length>0){
+      return true;
+    }else{
+      return false;
     }
   }
 }

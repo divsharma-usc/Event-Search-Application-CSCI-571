@@ -1,5 +1,5 @@
 <div id="fav">
-    <table class="table">
+    <table *ngIf="showFav()"class="table">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -26,4 +26,7 @@
             </tr>
         </tbody>
     </table>
+    <div *ngIf="!showFav()" class="noEventsToShow">
+        <p>No favorite events to show</p>
+    </div>
 </div>

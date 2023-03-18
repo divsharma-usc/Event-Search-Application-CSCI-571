@@ -30,4 +30,26 @@ table{
     table{
         width: 100%;
     }
+
+    .noEventsToShow{
+        width: 100%;
+    }
+}
+
+.noEventsToShow{
+    background-color: white;
+    border-radius: 10px;
+    color: red;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-top: 30px;
+    width: 70%;
+    display: flex;
+    font-weight: 500;
+    justify-content: center;
+}
+
+.noEventsToShow p{
+    padding-bottom: 0px;
+    margin-bottom: 0px;
 }
