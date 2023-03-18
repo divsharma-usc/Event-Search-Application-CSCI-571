@@ -77,7 +77,8 @@ app.get('/events', (req, res) => {
     var response_to_send = []
 
     if(segment_id != undefined && segment_id.length > 0){
-        remote_api_url += "&segmentId=" + segment_to_segment_id[segment_id];
+        //TODO
+        remote_api_url += "&segmentId=KZFzniwnSyZfZ7v7nE";
     }
 
     if(radius != undefined && radius.length > 0){
@@ -139,25 +140,25 @@ app.get('/events', (req, res) => {
                 name = event['name'];
             }catch(error){}
 
-            if(local_date.toLowerCase() == UNDEFINED)
+            if(local_date !=  undefined && local_date.toLowerCase() == UNDEFINED)
                 local_date = "";
 
-            if(local_time.toLowerCase() == UNDEFINED)
+            if(local_time != undefined && local_time.toLowerCase() == UNDEFINED)
                 local_time = "";
 
-            if(genre.toLowerCase() == UNDEFINED)
+            if(genre != undefined && genre.toLowerCase() == UNDEFINED)
                 genre = "";
 
-            if(venue.toLowerCase() == UNDEFINED)
+            if(venue != undefined && venue.toLowerCase() == UNDEFINED)
                 venue = "";
 
-            if(name.toLowerCase() == UNDEFINED)
+            if(name != undefined && name.toLowerCase() == UNDEFINED)
                 name = "";
 
-            if(image_url.toLowerCase() == UNDEFINED)
+            if(name != undefined && image_url.toLowerCase() == UNDEFINED)
                 image_url = "";
 
-            if(event_id.toLowerCase() != UNDEFINED && event_id.length > 0){
+            if(event_id != undefined && event_id.toLowerCase() != UNDEFINED && event_id.length > 0){
                 response_to_send.push({
                     'id': event_id,
                     'localDate': local_date,

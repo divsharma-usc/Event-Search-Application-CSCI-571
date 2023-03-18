@@ -47,7 +47,7 @@ interface VenueDetails{
 export class EventSearchComponent implements OnInit{
 
   remoteHost: string = "https://backend-dot-proven-entropy-376123.wl.r.appspot.com/";
-
+  //remoteHost: string = "http://localhost:8080/";
   segments: string[] = ['Default', 'Music', 'Sports', 'Arts & Theatre', 'Film', 'Miscellaneous'];
   default: string = 'Default';
 
@@ -117,7 +117,7 @@ export class EventSearchComponent implements OnInit{
           this.filteredEvents = [];
           this.isLoading = true;
         }),
-        switchMap(value => this.http.get(this.remoteHost + '/suggest?keyword=' + value)
+        switchMap(value => this.http.get(this.remoteHost + 'suggest?keyword=' + value)
           .pipe(
             finalize(() => {
               this.isLoading = false
@@ -199,7 +199,6 @@ export class EventSearchComponent implements OnInit{
     }
 
     var url =  this.remoteHost +'events?' + 'keyword=' + keyword + '&radius=' + distance + '&segment=' + segment + '&geoPoint=' + geolocation
-
     this.http.get(url)
     .subscribe((data: any)=>{
         this.eventsInformation = [];
@@ -241,7 +240,7 @@ export class EventSearchComponent implements OnInit{
       this.showDetails = true;
 
 
-      var venue_url = this.remoteHost + '/venue?venue=' + this.eventDetails.venue;
+      var venue_url = this.remoteHost + 'venue?venue=' + this.eventDetails.venue;
       this.http.get(venue_url)
       .subscribe((data: any) => {
         this.venueDetails = {
