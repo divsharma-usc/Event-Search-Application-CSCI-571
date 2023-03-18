@@ -306,7 +306,7 @@ table{
 }
 
 .limitTextHeight {
-    height: 35px;
+    height: 37px;
     overflow: hidden;
 }
 
@@ -334,6 +334,55 @@ table{
 table{
     width: 70%;
 }
+
+.artistContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-left: 100px;
+    padding-right:100px;
+}
+
+.artistUpperContainer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 25px;
+}
+
+.artistUpperContainer img{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+}
+
+.f1{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    width: 20%;
+}
+
+
+.f3 a{
+    font-size: 24px;
+}
+.lowerAC{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 25px;
+}
+
+.lowerAC img{
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+}
+
 
 @media screen and (max-width: 620px) {
 
@@ -381,70 +430,40 @@ table{
     .table{
         width: 100%;
     }
-}
 
-.artistContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding-left: 100px;
-    padding-right:100px;
-}
+    .f1{
+        margin-top: 5px;
+        width: 100%;
+    }
 
-.artistUpperContainer{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 25px;
-}
+    .artistUpperContainer{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
-.artistUpperContainer img{
-    border-radius: 50%;
-    height: 100px;
-    width: 100px;
-}
+    .lowerAC{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .lowerAC img{
+        margin-top: 10px;
+    }
 
-.f1{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    color: white;
-    width: 20%;
-}
+    #innerRightContainerVenueDetails{
+        width: 100%;
+    }
 
-.f2{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    color: white;
-    width: 33%;
-}
+    #innerLeftContainerVenueDetails{
+        width: 100%;
+    }
 
-.f3{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    color: white;
-    width: 33%;
-}
-
-
-.f3 a{
-    font-size: 24px;
-}
-.lowerAC{
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    margin-top: 25px;
-}
-
-.lowerAC img{
-    width: 150px;
-    height: 150px;
-    margin: 10px;
+    #outterContainerVenueDetails{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
