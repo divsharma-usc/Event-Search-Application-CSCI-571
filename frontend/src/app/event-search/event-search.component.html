@@ -31,7 +31,7 @@
             <div id="distance_and_category_box" style="margin-top: 8px;">
 
                 <div id="distance">
-                    <label style="display: block;" class="required-field">Distance (miles)</label>
+                    <label style="display: block;" class="required-field">Distance</label>
                     <input style="display: block; margin-top: 6px;" type="number" placeholder="10" id="distance" min="1" formControlName="distance"/>
                 </div>
 
@@ -43,12 +43,12 @@
                 </div>
             </div>
 
-            <div class="location_box"  style="margin-top: 8px;">
+            <div class="location_box"  style="margin-top: 15px;">
           
                 <label class="required-field" style="margin-top: 0px;">Location</label>
                 <input type="text" id="locationID" formControlName="location" required/>
                 <div id="checkboxBox">
-                    <input type="checkbox" id="autoDetectID" name="auto_detect_location" formControlName="autoDetection"><label>Auto-Detect Location</label>
+                    <input type="checkbox" id="autoDetectID" name="auto_detect_location" formControlName="autoDetection" (click)="toggleDisableLocation()"><label>Auto-detect your location</label>
                 </div>
             
             </div>

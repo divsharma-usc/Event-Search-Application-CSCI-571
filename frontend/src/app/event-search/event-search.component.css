@@ -44,7 +44,7 @@
 #search_form_container #search_events_form label{
     font-size: 15px;
     color: #64b4bf;
-    margin-top: 4px;
+    margin-top: 10px;
 }
 
 #search_form_container #search_events_form .required-field::after{
@@ -58,7 +58,7 @@
     padding-bottom: 3px;
     border: none;
     border-radius: 7px;
-    margin-top: 8px;
+    margin-top: 4px;
     font-size: 15px;
 }
 
@@ -88,9 +88,9 @@
 }
 
 #search_form_container #search_events_form input[type=checkbox] {
-    transform: scale(0.75);
+    transform: scale(1);
     margin-right: 3px;
-    margin-top: 0px;
+    margin-top: 8px;
     margin-bottom: 0px;
     vertical-align: bottom;
 }
@@ -117,7 +117,7 @@
 }
 
 #search_form_container #search_events_form #search_form_buttons_box{
-    margin-top: 40px;
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
@@ -127,7 +127,7 @@
 }
 
 #search_form_buttons_box button{
-    margin: 5px;
+    margin: 10px;
 }
 
 
@@ -203,7 +203,7 @@ table{
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 2px;
-    margin-top: 8px;
+    margin-top: 15px;
 }
 
 #outterContainer{
@@ -465,4 +465,8 @@ table{
         padding-left: 20px;
         padding-right: 20px;
     }
+}
+
+input:disabled{
+    background-color: white;
 }

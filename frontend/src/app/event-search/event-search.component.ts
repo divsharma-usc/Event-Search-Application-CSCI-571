@@ -79,6 +79,7 @@ export class EventSearchComponent implements OnInit{
   mapOptions: any;
   marker: any;
   artists: any = [];
+  disableLocation: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -146,6 +147,16 @@ export class EventSearchComponent implements OnInit{
     this.searchEventsForm.reset();
     this.searchEventsForm.patchValue({'keyword' : ''});
     this.searchEventsForm.controls['segment'].setValue(this.defaultSegment, {onlySelf: true});
+  }
+
+  toggleDisableLocation(){
+    if(this.disableLocation){
+      this.searchEventsForm.controls['location'].enable();
+    }else{
+      this.searchEventsForm.controls['location'].setValue(null, {onlySelf: true});
+      this.searchEventsForm.controls['location'].disable();
+    }
+    this.disableLocation = !this.disableLocation
   }
 
   //function to submit form
