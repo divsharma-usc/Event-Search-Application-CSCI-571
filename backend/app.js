@@ -95,6 +95,7 @@ app.get('/events', (req, res) => {
         remote_api_url += "&geoPoint=" + geohash.encode(lat_long[0], lat_long[1])
     }
 
+    console.log(remote_api_url)
     axios.get(remote_api_url)
     .then(function(response){
         const events = response.data["_embedded"]["events"];
@@ -110,35 +111,35 @@ app.get('/events', (req, res) => {
 
             try{
                 event_id = event['id'];
-            }catch(error){}
+            }catch(error){console.log(error);}
 
             try{
                 local_date = event['dates']['start']['localDate'];
-            }catch(error){}
+            }catch(error){console.log(error);}
         
             try{
                 local_time = event['dates']['start']['localTime'];
-            }catch(error){}
+            }catch(error){console.log(error);}
             
             try{
                 genre_list = event['classifications']
                 if(genre_list.length > 0)
                     genre = genre_list[0]['segment']['name'];
-            }catch(error){}
+            }catch(error){console.log(error);}
 
             try{
                 venue_list = event['_embedded']['venues']
                 if(venue_list.length > 0)
                     venue = venue_list[0]['name'];
-            }catch(error){}
+            }catch(error){console.log(error);}
            
             try{
                 image_url = event['images'][0]['url'];
-            }catch(error){}
+            }catch(error){console.log(error);}
             
             try{
                 name = event['name'];
-            }catch(error){}
+            }catch(error){console.log(error);}
 
             if(local_date !=  undefined && local_date.toLowerCase() == UNDEFINED)
                 local_date = "";
@@ -174,6 +175,7 @@ app.get('/events', (req, res) => {
         res.send(response_to_send);
     })
     .catch(function(error){
+        console.log(error);
         res.send({
             "status": 500,
             "message": "Internal Server Error"
