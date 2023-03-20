@@ -353,33 +353,69 @@ table{
 
 .artistUpperContainer img{
     border-radius: 50%;
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
 }
 
 .f1{
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     color: white;
-    width: 20%;
+    width: 40%;
+    text-overflow: initial;
 }
 
-.f3 a{
+.f1 label h6{
+   text-align: center;
+}
+
+.f2{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: white;
+    width: 20%;
+    margin-top: 20px;
+}
+
+.f2  a svg{
     font-size: 24px;
 }
+
 .lowerAC{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: row;
-    margin-top: 25px;
+    width: 100%;
 }
 
 .lowerAC img{
-    width: 150px;
-    height: 150px;
-    margin: 10px;
+    width: 170px;
+    height: 170px;
+}
+
+input:disabled{
+    background-color: white;
+}
+
+ngb-carousel{
+    height: 490px;
+}
+
+.info{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.carousel-control-next-icon svg{
+    fill: black;
+    color: black;
+    background-color: black;
 }
 
 
@@ -432,6 +468,7 @@ table{
 
     .f1{
         margin-top: 5px;
+        margin-right: 35px;
         width: 100%;
     }
 
@@ -445,9 +482,10 @@ table{
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        padding-bottom: 25px;
     }
     .lowerAC img{
-        margin-top: 10px;
+        margin-top: 20px;
     }
 
     #innerRightContainerVenueDetails{
@@ -465,8 +503,30 @@ table{
         padding-left: 20px;
         padding-right: 20px;
     }
-}
 
-input:disabled{
-    background-color: white;
+    ngb-carousel{
+        height: 1200px;
+    }
+
+    ngb-carousel label{
+        margin-top: 20px;
+    }
+
+    .f1{
+        margin-right: 0px;
+    }
+
+    .f2{
+        width: 100%;
+        margin-top: 10px !important;
+    }
+
+    .f2 label{
+        margin-top: 4px;
+    }
+
+    .info{
+        margin-top: 5px;
+        text-align: center;
+    }
 }

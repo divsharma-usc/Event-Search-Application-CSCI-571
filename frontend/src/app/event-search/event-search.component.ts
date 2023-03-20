@@ -162,6 +162,9 @@ export class EventSearchComponent implements OnInit{
   //function to submit form
   submitSearchForm(){
 
+    this.showDetails = false;
+    this.showTable = false;
+
     //Check form Validity
     const keywordInput = (<HTMLInputElement>document.getElementById("keywordID"));
     const keywordValidityState = keywordInput.validity;
