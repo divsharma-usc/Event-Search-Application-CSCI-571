@@ -41,7 +41,7 @@ app.get('/suggest', (req, res) => {
     axios.get(remote_api_url)
     .then(function(response){
         response_data = response.data;
-        events = response_data['_embedded']['events'].map((event) => { return event['name']});
+        events = response_data['_embedded']['attractions'].map((event) => { return event['name']});
         const response_to_send = {
             "events": events
         };
@@ -76,9 +76,10 @@ app.get('/events', (req, res) => {
 
     var response_to_send = []
 
-    if(segment_id != undefined && segment_id.length > 0){
-        //TODO
-        remote_api_url += "&segmentId=KZFzniwnSyZfZ7v7nE";
+    console.log(segment_to_segment_id['default'])
+
+    if(segment_id != undefined && segment_id.length > 0 && segment_to_segment_id[segment_id] != undefined){
+        remote_api_url = remote_api_url + "&segmentId=" + segment_to_segment_id[segment_id];
     }
 
     if(radius != undefined && radius.length > 0){

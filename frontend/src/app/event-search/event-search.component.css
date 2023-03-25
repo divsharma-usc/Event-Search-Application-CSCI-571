@@ -527,6 +527,16 @@ ngb-carousel{
 
     .info{
         margin-top: 5px;
-        text-align: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    #showEventDetails{
+        max-width: 100%;
     }
 }

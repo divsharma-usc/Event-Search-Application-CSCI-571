@@ -20,6 +20,7 @@ export class FavoritesComponent implements OnInit{
   }
 
   deleteFav(id: any){
+    window.alert("Event Removed from Favorites!");
     var data: any = localStorage.getItem("favorites");
     data = JSON.parse(data);
     delete data[id];

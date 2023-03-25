@@ -46,8 +46,8 @@ interface VenueDetails{
 
 export class EventSearchComponent implements OnInit{
 
-  remoteHost: string = "https://backend-dot-proven-entropy-376123.wl.r.appspot.com/";
-  //remoteHost: string = "http://localhost:8080/";
+  //remoteHost: string = "https://backend-dot-proven-entropy-376123.wl.r.appspot.com/";
+  remoteHost: string = "http://localhost:8080/";
   segments: string[] = ['Default', 'Music', 'Sports', 'Arts & Theatre', 'Film', 'Miscellaneous'];
   default: string = 'Default';
 
@@ -290,8 +290,10 @@ export class EventSearchComponent implements OnInit{
     const data: any = localStorage.getItem("favorites");
     let favorites = JSON.parse(data);
     if(favorites && id in favorites){
+      window.alert("Event Removed from Favorites!");
       delete favorites[id]; 
     }else if(favorites!=undefined || favorites!=null){
+        window.alert("Event added to Favorites!");
         favorites[id] = {
             "date": date,
             "genres": genres,
@@ -299,6 +301,7 @@ export class EventSearchComponent implements OnInit{
             "name": name
           };
     }else{
+      window.alert("Event added to Favorites!");
       favorites = {};
       favorites[id] = {
         "date": date,
