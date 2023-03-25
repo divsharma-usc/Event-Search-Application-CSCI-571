@@ -25,17 +25,6 @@ table{
     justify-content: center;
 }
 
-@media screen and (max-width: 620px) {
-
-    table{
-        width: 100%;
-    }
-
-    .noEventsToShow{
-        width: 100%;
-    }
-}
-
 .noEventsToShow{
     background-color: white;
     border-radius: 20px;
@@ -52,4 +41,15 @@ table{
 .noEventsToShow p{
     padding-bottom: 0px;
     margin-bottom: 0px;
+}
+
+@media screen and (max-width: 620px) {
+
+    table{
+        width: 100%;
+    }
+
+    .noEventsToShow{
+        width: 100%;
+    }
 }
