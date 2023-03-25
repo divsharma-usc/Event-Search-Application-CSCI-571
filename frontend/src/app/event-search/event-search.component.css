@@ -554,12 +554,12 @@ ngb-carousel{
 }
 
 ::ng-deep.mdc-tab-indicator__content{
-    background-color: #0d6efd !important;
-    color: #0d6efd !important;
-    border-color: #0d6efd !important;
+    background-color: #3e51b5 !important;
+    color: #3e51b5 !important;
+    border-color: #3e51b5 !important;
 }
 ::ng-deep.mdc-tab-indicator__content--underline{
-    background-color: #0d6efd !important;
-    color: #0d6efd !important;
-    border-color: #0d6efd !important;
+    background-color: #3e51b5 !important;
+    color: #3e51b5 !important;
+    border-color: #3e51b5 !important;
 }
