@@ -90,7 +90,7 @@
     </table>
 
     <div *ngIf="noRecordFound && showTable" class="noRecordFound">
-        No Record Found
+        No results available
     </div>
 
     <!-- Event Details -->
@@ -154,7 +154,7 @@
 
             <mat-tab label="Artist/Teams">
                 <ngb-carousel
-                    *ngIf="artists"
+                    *ngIf="artists && artists.length > 0"
                     [showNavigationArrows]="true"
                     [showNavigationIndicators]="false"
                     [interval]="0"
@@ -202,6 +202,22 @@
                                 <div *ngFor="let album of artist.albumImages">
                                     <img [src]="album.url">
                                 </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-carousel>
+                <p></p>
+                <ngb-carousel
+                    *ngIf="artists && artists.length==0"
+                    [showNavigationArrows]="false"
+                    [showNavigationIndicators]="false"
+                    [interval]="0"
+                    class="noH"
+                >
+                    <ng-template ngbSlide>
+                        <div class="noArtistsFound">
+                            <div class="noArtistsFoundMessage">
+                                No music related artist details to show
                             </div>
                         </div>
                     </ng-template>

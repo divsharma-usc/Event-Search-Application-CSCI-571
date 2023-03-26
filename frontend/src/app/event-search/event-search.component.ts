@@ -285,7 +285,7 @@ export class EventSearchComponent implements OnInit{
       var artists_url = this.remoteHost + 'spotify';
       this.http.post(artists_url, {"artists": data.artistOrTeam})
       .subscribe((data: any)=>{
-        this.artists = data
+        this.artists = data;
       });
     });
   }

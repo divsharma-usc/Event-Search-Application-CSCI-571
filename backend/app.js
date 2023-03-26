@@ -417,45 +417,49 @@ app.post('/spotify', (req, res) => {
                     .then(async function(data) {
                         try{
                             const art = data.body.artists.items[0];
-                            await spotifyApi.getArtistAlbums(art.id, { limit: 3, offset: 0}).then(
-                                function(data) {     
-                                    var albumImages;
-                                    var albums;
-                                    var artistImage;
-                                    var followers;
-                                    var spotifyLink;
+                            console.log(art.name)
+                            console.log(artists[index])
+                            if(art.name.trim().toLocaleLowerCase()==artists[index].trim().toLocaleLowerCase()){
+                                await spotifyApi.getArtistAlbums(art.id, { limit: 3, offset: 0}).then(
+                                    function(data) {     
+                                        var albumImages;
+                                        var albums;
+                                        var artistImage;
+                                        var followers;
+                                        var spotifyLink;
 
-                                    try{ 
-                                        albums = data.body.items; 
-                                        albumImages = albums.map(item => item.images[0]);
-                                    }catch(err){}
+                                        try{ 
+                                            albums = data.body.items; 
+                                            albumImages = albums.map(item => item.images[0]);
+                                        }catch(err){}
 
-                                    try{
-                                        artistImage = art.images[0].url;
-                                    }catch(err){}
+                                        try{
+                                            artistImage = art.images[0].url;
+                                        }catch(err){}
 
-                                    try{
-                                        followers = art.followers.total;
-                                    }catch(err){}
+                                        try{
+                                            followers = art.followers.total;
+                                        }catch(err){}
 
-                                    try{
-                                        spotifyLink = art.external_urls.spotify;
-                                    }catch(err){}
+                                        try{
+                                            spotifyLink = art.external_urls.spotify;
+                                        }catch(err){}
 
-                                    response_body.push({
-                                        "name": art.name,
-                                        "popularity": art.popularity,
-                                        "followers": followers,
-                                        "spotifyLink": spotifyLink,
-                                        "artistImage": artistImage,
-                                        "albumImages": albumImages
-                                    });
+                                        response_body.push({
+                                            "name": art.name,
+                                            "popularity": art.popularity,
+                                            "followers": followers,
+                                            "spotifyLink": spotifyLink,
+                                            "artistImage": artistImage,
+                                            "albumImages": albumImages
+                                        });
 
-                                },
-                                function(err) {
-                                    console.error(err);
-                                }
-                            );
+                                    },
+                                    function(err) {
+                                        console.error(err);
+                                    }
+                                );
+                            }
                         }catch(err){}
                     }, function(err) {
                         console.error(err);
