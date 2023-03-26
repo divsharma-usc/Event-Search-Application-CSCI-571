@@ -62,7 +62,7 @@
     </div>
 
     <!-- TABLE -->
-    <table class="table table-striped table-dark" *ngIf="showTable">
+    <table class="table table-striped table-dark" *ngIf="showTable && recordFound">
         <thead>
             <tr class="table-dark">
                 <th scope="col" class="table-dark">Date/Time</th>
@@ -88,6 +88,10 @@
             </tr>
         </tbody>
     </table>
+
+    <div *ngIf="noRecordFound && showTable" class="noRecordFound">
+        No Record Found
+    </div>
 
     <!-- Event Details -->
     <div *ngIf="showDetails" id="showEventDetails">

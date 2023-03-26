@@ -188,6 +188,19 @@ table{
     fill: red;
 }
 
+.noRecordFound{
+    background-color: white;
+    color: red;
+    font-size: 16px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    border-radius: 0.5em;
+    margin-top: 50px;
+}
 
 #showEventDetails{
     margin-top: 50px;
@@ -536,6 +549,10 @@ ngb-carousel{
 
     .info p{
         text-align: center;
+    }
+
+    .noRecordFound{
+        width: 100%;
     }
 }
 

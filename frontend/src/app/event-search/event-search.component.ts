@@ -46,8 +46,8 @@ interface VenueDetails{
 
 export class EventSearchComponent implements OnInit{
 
-  remoteHost: string = "https://backend-dot-proven-entropy-376123.wl.r.appspot.com/";
-  //remoteHost: string = "http://localhost:8080/";
+  //remoteHost: string = "https://backend-dot-proven-entropy-376123.wl.r.appspot.com/";
+  remoteHost: string = "http://localhost:8080/";
   segments: string[] = ['Default', 'Music', 'Sports', 'Arts & Theatre', 'Film', 'Miscellaneous'];
   default: string = 'Default';
 
@@ -80,6 +80,8 @@ export class EventSearchComponent implements OnInit{
   marker: any;
   artists: any = [];
   disableLocation: boolean = false;
+  noRecordFound: boolean = true;
+  recordFound: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -212,22 +214,29 @@ export class EventSearchComponent implements OnInit{
       distance=10;
     }
 
+    this.recordFound = false;
+    this.noRecordFound = true;
+
     var url =  this.remoteHost +'events?' + 'keyword=' + keyword + '&radius=' + distance + '&segment=' + segment + '&geoPoint=' + geolocation
     this.http.get(url)
     .subscribe((data: any)=>{
-        this.eventsInformation = [];
-        data.forEach((element: any) => {
-          this.eventsInformation.push({
-            id: element.id,
-            date: element.localDate,
-            time: element.localTime,
-            imageSrc: element.image_url,
-            name: element.name,
-            genre: element.genre,
-            venue: element.venue
-          } as EventInformation);
-          this.showTable = true;
-        });
+        this.showTable = true;
+        if(data.status != '500'){
+          this.eventsInformation = [];
+          this.recordFound = true;
+          this.noRecordFound = false;
+          data.forEach((element: any) => {
+            this.eventsInformation.push({
+              id: element.id,
+              date: element.localDate,
+              time: element.localTime,
+              imageSrc: element.image_url,
+              name: element.name,
+              genre: element.genre,
+              venue: element.venue
+            } as EventInformation);
+          });
+        }
     });
   }
 
