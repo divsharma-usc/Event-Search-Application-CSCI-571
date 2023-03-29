@@ -149,6 +149,7 @@
 table{
     text-align: center;
     margin-top: 50px;
+    border-radius: 0.5em;
 }
 
 #search_form_container{
@@ -476,10 +477,21 @@ ngb-carousel{
     text-align: center;
 }
 
+.tableDiv{
+    width: 100%;
+    overflow-x: auto;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
 @media screen and (max-width: 620px) {
 
     #outterBox{
         min-width: 100%;
+        padding: 3px;
     }
     #search_form_container {
       width: 100%;
@@ -520,7 +532,7 @@ ngb-carousel{
     }
 
     .table{
-        width: 100%;
+        width: fit-content;
     }
 
     .f1{
@@ -601,6 +613,11 @@ ngb-carousel{
         padding-left: 0px !important;
         padding-right: 0px !important;
     }
+
+    .tableDiv{
+        align-items: flex-start;
+    }
+
 }
 
 @media screen and (max-width: 750px) {
