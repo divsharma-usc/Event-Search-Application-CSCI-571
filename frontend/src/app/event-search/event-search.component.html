@@ -165,7 +165,7 @@
                             <div class="artistUpperContainer">
                                 <div class="f1">
                                     <img [src]="artist.artistImage" *ngIf="artist.artistImage && artist.artistImage.length>0">
-                                    <label *ngIf="artist.name && artist.name.length>0"><h6>{{artist.name}}</h6></label>
+                                    <label *ngIf="artist.name && artist.name.length>0"><h5>{{artist.name}}</h5></label>
                                 </div>
                                 <div class="f2" *ngIf="artist.popularity">
                                     <label>Popularity</label>
@@ -181,7 +181,7 @@
                                 </div>
                                 <div class="f2" *ngIf="artist.followers">
                                     <label>Followers</label>
-                                    <div>{{artist.followers | number:'1.0':'en-US'}}</div>
+                                    <div style="font-size: 15px;">{{artist.followers | number:'1.0':'en-US'}}</div>
                                 </div>
                                 <div class="f2" *ngIf="artist.spotifyLink && artist.spotifyLink.length>0">
                                     <label>Spotify Link</label>
