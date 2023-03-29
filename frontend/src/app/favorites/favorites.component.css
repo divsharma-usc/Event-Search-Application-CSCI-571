@@ -57,14 +57,14 @@ table{
 
 label{
     font-size: 15px;
-    color: #64b4bf;
+    color: #9afbe5;
     margin-top: 10px;
 }
 
 .ff1{
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center
 }
 
 @media screen and (max-width: 620px) {
@@ -79,5 +79,9 @@ label{
 
     .tableDiv{
         align-items: flex-start;
+    }
+
+    .ff1{
+        justify-content: flex-start;
     }
 }
