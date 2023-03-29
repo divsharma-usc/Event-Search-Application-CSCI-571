@@ -375,6 +375,7 @@ export class EventSearchComponent implements OnInit{
   }
 
   getFBURL(url: any){
-    return "https://www.facebook.com/sharer/sharer.php?u=" + url + ";src=sdkpreparse"
+    var fbLink = "https://www.facebook.com/sharer/sharer.php?u=" + url + "&amp;src=sdkpreparse";
+    return fbLink
   }
 }
