@@ -149,7 +149,6 @@
 table{
     text-align: center;
     margin-top: 50px;
-    border-radius: 0.5em;
 }
 
 #search_form_container{
@@ -198,7 +197,7 @@ table{
     font-size: 16px;
     padding-top: 2px;
     padding-bottom: 2px;
-    font-weight: 500;
+    font-weight: 550;
     display: flex;
     justify-content: center;
     width: 60%;
@@ -648,3 +647,31 @@ ngb-carousel{
     color: #3e51b5 !important;
     border-color: #3e51b5 !important;
 }
+
+.table-curved {
+    border: none;
+    border-radius: 0.5em;
+    border-left: none;
+    border-top: none;
+    border-bottom-width: 0px !important;
+ }
+ .table-curved > thead:first-child > tr:first-child > th {
+     border-bottom: 0px;
+     border-top: none;
+ }
+ .table-curved td, .table-curved th {
+     border-left: none;
+     border-top: none;
+ }
+ .table-curved > :first-child > :first-child > :first-child {
+     border-radius: 10px 0 0 0;
+ }
+ .table-curved > :first-child > :first-child > :last-child {
+     border-radius: 0 0.5em 0 0;
+ }
+ .table-curved > :last-child > :last-child > :first-child {
+     border-radius: 0 0 0 0.5em;
+ }
+ .table-curved > :last-child > :last-child > :last-child {
+    border-radius: 0 0 0.5em 0;
+ }

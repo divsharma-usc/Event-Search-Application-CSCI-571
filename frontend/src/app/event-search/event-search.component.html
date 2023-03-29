@@ -63,7 +63,7 @@
 
     <!-- TABLE -->
     <div class="tableDiv">
-        <table class="table pointer table-striped table-dark" *ngIf="showTable && recordFound">
+        <table class="table pointer table-striped table-dark table-curved" *ngIf="showTable && recordFound">
             <thead>
                 <tr class="table-dark">
                     <th scope="col" class="table-dark">Date/Time</th>
@@ -83,7 +83,7 @@
                             style="width: 50px; height: 50px;"
                         />
                     </td>
-                    <td class="table-dark" class="pointer">{{event.name}}</td>
+                    <td class="table-dark">{{event.name}}</td>
                     <td class="table-dark">{{event.genre}}</td>
                     <td class="table-dark">{{event.venue}}</td>
                 </tr>
