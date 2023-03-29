@@ -200,7 +200,12 @@ export class EventSearchComponent implements OnInit{
       const googleMapUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+ location +"&key=AIzaSyBaoCSxxIZsLw1C_Wxn7foPJaU7GtnhdDk";
       this.http.get(googleMapUrl)
       .subscribe((data: any) => {
-          this.populateEventInformationTable(data.results[0].geometry.location.lat + ',' + data.results[0].geometry.location.lng);
+          if(data.results.length!=0){
+            this.populateEventInformationTable(data.results[0].geometry.location.lat + ',' + data.results[0].geometry.location.lng);
+          }else{
+            this.showTable=true;
+            this.noRecordFound=true;
+          }
       });
     }
   }
