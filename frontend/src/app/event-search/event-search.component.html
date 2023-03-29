@@ -31,7 +31,7 @@
             <div id="distance_and_category_box" style="margin-top: 8px;">
 
                 <div id="distance">
-                    <label style="display: block;" class="required-field">Distance</label>
+                    <label style="display: block;">Distance</label>
                     <input style="display: block; margin-top: 6px;" type="number" placeholder="10" id="distance" min="1" formControlName="distance"/>
                 </div>
 
@@ -45,7 +45,7 @@
 
             <div class="location_box"  style="margin-top: 15px;">
           
-                <label class="required-field" style="margin-top: 0px;">Location</label>
+                <label style="margin-top: 0px;">Location</label>
                 <input type="text" id="locationID" formControlName="location" required/>
                 <div id="checkboxBox">
                     <input type="checkbox" id="autoDetectID" name="auto_detect_location" formControlName="autoDetection" (click)="toggleDisableLocation()"><label>Auto-detect your location</label>
@@ -100,15 +100,16 @@
                 <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
             </svg>Back</button>
         <div id="eventNameHeading">
-            <p>{{eventDetails.eventName}}</p>
-            <button ngClass="heart-button" (click)="addOrRemoveFromFavorites(eventDetails.id, eventDetails.eventDate, eventDetails.genres, eventDetails.venue, eventDetails.eventName)">
-                <svg *ngIf="isIdNotInFavorites(eventDetails.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-heart" viewBox="0 0 16 16">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                </svg>
-                <svg *ngIf="isIdInFavorites(eventDetails.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                </svg>
-            </button>
+            <div id="eventName">{{eventDetails.eventName.trim()}}
+                <button ngClass="heart-button" (click)="addOrRemoveFromFavorites(eventDetails.id, eventDetails.eventDate, eventDetails.genres, eventDetails.venue, eventDetails.eventName)">
+                    <svg *ngIf="isIdNotInFavorites(eventDetails.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-heart" viewBox="0 0 16 16">
+                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                    </svg>
+                    <svg *ngIf="isIdInFavorites(eventDetails.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                    </svg>
+                </button>
+            </div>
         </div>
         <mat-tab-group 
             [backgroundColor]="'primary'"
@@ -180,7 +181,7 @@
                                 </div>
                                 <div class="f2" *ngIf="artist.followers">
                                     <label>Followers</label>
-                                    <p>{{artist.followers | number:'1.0':'en-US'}}</p>
+                                    <div>{{artist.followers | number:'1.0':'en-US'}}</div>
                                 </div>
                                 <div class="f2" *ngIf="artist.spotifyLink && artist.spotifyLink.length>0">
                                     <label>Spotify Link</label>
@@ -196,7 +197,7 @@
                                 </div>
                             </div>
                             <div class="info">
-                                <label style="font-size: 14px;"><p>Album featuring {{artist.name}}</p></label>
+                                <label style="font-size: 14px;">Album featuring {{artist.name}}</label>
                             </div>
                             <div class="lowerAC">
                                 <div *ngFor="let album of artist.albumImages">
@@ -240,30 +241,30 @@
                         <label *ngIf="venueDetails.openHours != undefined && venueDetails.openHours.length > 0">Open Hours</label>
                         <div *ngIf="venueDetails.openHours != undefined && venueDetails.openHours.length > 0">
                             <p [ngClass]="{'limitTextHeight': readMoreOpenHours}">{{venueDetails.openHours}}</p>
-                            <a href="javascript:;" *ngIf="readMoreOpenHours" (click)="togleReadMoreOpenHours()"> Read More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                            <a href="javascript:;" *ngIf="readMoreOpenHours" (click)="togleReadMoreOpenHours()">Show More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                             </svg></a>
-                            <a href="javascript:;" *ngIf="!readMoreOpenHours" (click)="togleReadMoreOpenHours()">Read Less <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                            <a href="javascript:;" *ngIf="!readMoreOpenHours" (click)="togleReadMoreOpenHours()">Show Less <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-up" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
                               </svg></a>
                         </div>
                         <label *ngIf="venueDetails.generalRule != undefined && venueDetails.generalRule.length > 0">General Rule</label>
                         <div *ngIf="venueDetails.generalRule != undefined && venueDetails.generalRule.length > 0">
                             <p [ngClass]="{'limitTextHeight': readMoreGeneralRule}">{{venueDetails.generalRule}}</p>
-                            <a href="javascript:;" *ngIf="readMoreGeneralRule" (click)="toggleReadMoreGeneralRule()"> Read More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                            <a href="javascript:;" *ngIf="readMoreGeneralRule" (click)="toggleReadMoreGeneralRule()">Show More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                             </svg></a>
-                            <a href="javascript:;" *ngIf="!readMoreGeneralRule" (click)="toggleReadMoreGeneralRule()">Read Less <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                            <a href="javascript:;" *ngIf="!readMoreGeneralRule" (click)="toggleReadMoreGeneralRule()">Show Less <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-up" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
                               </svg></a>
                         </div>
                         <label *ngIf="venueDetails.childRule != undefined && venueDetails.childRule.length > 0">Child Rule</label>
                         <div *ngIf="venueDetails.childRule != undefined && venueDetails.childRule.length > 0">
                             <p [ngClass]="{'limitTextHeight': readMoreChildRule}">{{venueDetails.childRule}}</p>
-                            <a href="javascript:;" *ngIf="readMoreChildRule" (click)="toggleReadMoreChildRule()"> Read More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                            <a href="javascript:;" *ngIf="readMoreChildRule" (click)="toggleReadMoreChildRule()"> Show More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                             </svg></a>
-                            <a href="javascript:;" *ngIf="!readMoreChildRule" (click)="toggleReadMoreChildRule()">Read Less <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                            <a href="javascript:;" *ngIf="!readMoreChildRule" (click)="toggleReadMoreChildRule()">Show Less <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-up" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
                               </svg></a>
                         </div>

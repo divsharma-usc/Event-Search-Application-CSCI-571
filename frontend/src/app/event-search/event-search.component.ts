@@ -150,6 +150,7 @@ export class EventSearchComponent implements OnInit{
     this.searchEventsForm.reset();
     this.searchEventsForm.patchValue({'keyword' : ''});
     this.searchEventsForm.controls['segment'].setValue(this.defaultSegment, {onlySelf: true});
+    this.searchEventsForm.controls['location'].enable();
   }
 
   toggleDisableLocation(){
