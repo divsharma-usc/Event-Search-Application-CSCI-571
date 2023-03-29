@@ -81,7 +81,6 @@
     border-radius: 7px;
     margin-top: 5px;
     font-size: 15px;
-    width: 100% !important;
 }
 #search_form_container #search_events_form option{
     background-color: rgba(56, 56, 56, 0.3);
@@ -110,6 +109,10 @@
 
 #search_form_container #search_events_form #distance_and_category_box #category_box{
     width: 55%;
+}
+
+#search_form_container #search_events_form #distance_and_category_box #category_box select{
+    width: 80%;
 }
 
 #search_form_container #search_events_form #locationID{
@@ -496,7 +499,7 @@ ngb-carousel{
     }
 
     #search_form_container #search_events_form #distance_and_category_box #category_box{
-        width: 80%;
+        width: 100%;
     }
 
     #showEventDetails{
