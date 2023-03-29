@@ -173,6 +173,22 @@ app.get('/events', (req, res) => {
             }
         }
 
+        response_to_send.sort(function(x, y){
+            x_timestamp = x.localDate;
+            if(x.localTime != undefined && x.localTime.length>0){
+                x_timestamp = x_timestamp + 'T' + x.localTime
+            }
+
+            y_timestamp = y.localDate;
+            if(y.localTime != undefined && y.localTime.length>0){
+                y_timestamp = y_timestamp + 'T' + y.localTime
+            }
+
+            console.log(Date.parse(x_timestamp) - Date.parse(y_timestamp))
+
+            return Date.parse(x_timestamp) - Date.parse(y_timestamp);
+        })
+        
         res.send(response_to_send);
     })
     .catch(function(error){

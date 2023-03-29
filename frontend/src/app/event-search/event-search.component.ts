@@ -47,7 +47,6 @@ interface VenueDetails{
 export class EventSearchComponent implements OnInit{
 
   remoteHost: string = "https://backend-dot-proven-entropy-376123.wl.r.appspot.com/";
-  //Some comment
   //remoteHost: string = "http://localhost:8080/";
   segments: string[] = ['Default', 'Music', 'Sports', 'Arts & Theatre', 'Film', 'Miscellaneous'];
   default: string = 'Default';

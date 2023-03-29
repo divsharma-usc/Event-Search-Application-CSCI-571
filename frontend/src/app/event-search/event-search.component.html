@@ -63,7 +63,7 @@
 
     <!-- TABLE -->
     <div class="tableDiv">
-        <table class="table table-striped table-dark" *ngIf="showTable && recordFound">
+        <table class="table pointer table-striped table-dark" *ngIf="showTable && recordFound">
             <thead>
                 <tr class="table-dark">
                     <th scope="col" class="table-dark">Date/Time</th>
@@ -74,7 +74,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let event of eventsInformation;">
+                <tr *ngFor="let event of eventsInformation;" (click)="showEventDetails(event.id)">
                     <td scope="row" class="table-dark">{{event.date}} <br> {{event.time}}</td>
                     <td class="table-dark">
                         <img
@@ -83,7 +83,7 @@
                             style="width: 50px; height: 50px;"
                         />
                     </td>
-                    <td class="table-dark" (click)="showEventDetails(event.id)" class="pointer">{{event.name}}</td>
+                    <td class="table-dark" class="pointer">{{event.name}}</td>
                     <td class="table-dark">{{event.genre}}</td>
                     <td class="table-dark">{{event.venue}}</td>
                 </tr>
