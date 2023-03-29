@@ -83,6 +83,7 @@ export class EventSearchComponent implements OnInit{
   disableLocation: boolean = false;
   noRecordFound: boolean = true;
   recordFound: boolean = false;
+  showNavigationArrows: boolean = true;
 
   constructor(
     private http: HttpClient,
@@ -293,6 +294,11 @@ export class EventSearchComponent implements OnInit{
       this.http.post(artists_url, {"artists": data.artistOrTeam})
       .subscribe((data: any)=>{
         this.artists = data;
+        if(this.artists.length<=1){
+          this.showNavigationArrows=false;
+        }else{
+          this.showNavigationArrows=true;
+        }
       });
     });
   }
