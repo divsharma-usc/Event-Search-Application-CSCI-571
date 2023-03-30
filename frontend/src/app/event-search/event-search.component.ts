@@ -62,7 +62,7 @@ export class EventSearchComponent implements OnInit{
   filteredEvents: any;
   isLoading = false;
   errorMsg!: string;
-  minLengthTerm = 2;
+  minLengthTerm = 1;
   selectedEvent: any = "";
   defaultSegment: any = "Default";
   eventsInformation: EventInformation[] = [];
