@@ -1,16 +1,15 @@
 <div id="container">
     <ul ngbNav #nav="ngbNav">
         <li ngbNavItem>
-          <a ngbNavLink>Search</a>
-          <ng-template ngbNavContent><event-search></event-search></ng-template>
+          <a ngbNavLink routerLink="/search">Search</a>
         </li>
         <li ngbNavItem>
-          <a ngbNavLink>Favorites</a>
-          <ng-template ngbNavContent><favorites></favorites></ng-template>
+          <a ngbNavLink routerLink="/favorites">Favorites</a>
         </li>
     </ul>
     <div id = "mainContainer">
-      <div [ngbNavOutlet]="nav" style="width: 100%;"></div>
+      <div style="width: 100%;">
+        <router-outlet></router-outlet>
+      </div>
     </div>
 </div>
-<router-outlet></router-outlet>
