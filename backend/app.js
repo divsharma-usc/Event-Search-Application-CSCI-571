@@ -96,7 +96,6 @@ app.get('/events', (req, res) => {
         remote_api_url += "&geoPoint=" + geohash.encode(lat_long[0], lat_long[1])
     }
 
-    console.log(remote_api_url)
     axios.get(remote_api_url)
     .then(function(response){
         const events = response.data["_embedded"]["events"];
@@ -183,8 +182,6 @@ app.get('/events', (req, res) => {
             if(y.localTime != undefined && y.localTime.length>0){
                 y_timestamp = y_timestamp + 'T' + y.localTime
             }
-
-            console.log(Date.parse(x_timestamp) - Date.parse(y_timestamp))
 
             return Date.parse(x_timestamp) - Date.parse(y_timestamp);
         })
@@ -433,8 +430,6 @@ app.post('/spotify', (req, res) => {
                     .then(async function(data) {
                         try{
                             const art = data.body.artists.items[0];
-                            console.log(art.name)
-                            console.log(artists[index])
                             if(art.name.trim().toLocaleLowerCase()==artists[index].trim().toLocaleLowerCase()){
                                 await spotifyApi.getArtistAlbums(art.id, { limit: 3, offset: 0}).then(
                                     function(data) {     
@@ -532,7 +527,6 @@ app.get('/venue', (req, res) => {
             }
         }catch(error){console.log(error)}
 
-        console.log(address_array);
         const address = address_array.join(', ');
     
         try{
