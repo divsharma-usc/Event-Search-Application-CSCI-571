@@ -79,9 +79,11 @@ label{
 
     .tableDiv{
         align-items: flex-start;
+        padding-left: 10px;
     }
 
     .ff1{
         justify-content: flex-start;
+        padding-left: 10px;
     }
 }
