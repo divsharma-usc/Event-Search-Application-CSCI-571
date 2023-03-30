@@ -346,9 +346,9 @@ app.get('/events/:eventId', (req, res) => {
             price = min_price + ' - ' + max_price;
         }
 
-        if (currency !== "" && price !== "") {
+        /*if (currency !== "" && price !== "") {
             price = price + " " + currency;
-        }
+        }*/
 
         if (local_date !== "") {
             date += local_date;

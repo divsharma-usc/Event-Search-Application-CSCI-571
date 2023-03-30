@@ -45,7 +45,7 @@
 
             <div class="location_box"  style="margin-top: 15px;">
           
-                <label style="margin-top: 0px;">Location</label>
+                <label class="required-field" style="margin-top: 0px;">Location</label>
                 <input type="text" id="locationID" formControlName="location" required/>
                 <div id="checkboxBox">
                     <input type="checkbox" id="autoDetectID" name="auto_detect_location" formControlName="autoDetection" (click)="toggleDisableLocation()"><label>Auto-detect your location</label>
@@ -80,7 +80,7 @@
                         <img
                             [src]="event.imageSrc"
                             class="me-2"
-                            style="width: 50px; height: 50px;"
+                            style="width: 70px; height: 70px;"
                         />
                     </td>
                     <td class="table-dark">{{event.name}}</td>
@@ -133,7 +133,7 @@
                         <div *ngIf="eventDetails.priceRange && eventDetails.priceRange.length > 0">{{eventDetails.priceRange}}</div>
                         <label *ngIf="eventDetails.ticketStatus && eventDetails.ticketStatus.length > 0">Ticket Status</label>
                         <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='onsale'" style="background-color: green;">On Sale</div>
-                        <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='offsale'" style="background-color: red;">Sold Out</div>
+                        <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='offsale'" style="background-color: red;">Off Sale</div>
                         <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='cancelled'" style="background-color: black;">Cancelled</div>
                         <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='rescheduled'" style="background-color: orange;">Rescheduled</div>
                         <div class="ticketStatus" *ngIf="eventDetails.ticketStatus=='postponed'" style="background-color: orange;">Postponed</div>
