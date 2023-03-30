@@ -67,7 +67,7 @@ app.get('/events', (req, res) => {
         "miscellaneous": "KZFzniwnSyZfZ7v7n1"
     };
 
-    const segment_id = req.query["segment"];
+    var segment_id = req.query["segment"];
     const radius = req.query["radius"];
     const keyword = req.query["keyword"];
     const geo_point = req.query["geoPoint"];
@@ -76,8 +76,8 @@ app.get('/events', (req, res) => {
 
     var response_to_send = []
 
-    console.log(segment_to_segment_id['default'])
-
+    segment_id = segment_id.toLowerCase().trim();
+  
     if(segment_id != undefined && segment_id.length > 0 && segment_to_segment_id[segment_id] != undefined){
         remote_api_url = remote_api_url + "&segmentId=" + segment_to_segment_id[segment_id];
     }
