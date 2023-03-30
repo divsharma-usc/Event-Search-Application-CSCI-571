@@ -228,7 +228,7 @@ app.get('/events/:eventId', (req, res) => {
             for (let classification of response['classifications']) {
                 try {
                     if (classification['segment']['name'] && classification['segment']['name'].toLowerCase() !== UNDEFINED) {
-                        genre += classification['segment']['name'] + ' | ';
+                        genres += classification['segment']['name'] + ' | ';
                     }
                 } catch (err) {}
     
