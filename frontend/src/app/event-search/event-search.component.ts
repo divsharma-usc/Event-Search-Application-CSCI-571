@@ -108,7 +108,6 @@ export class EventSearchComponent implements OnInit{
 
   ngOnInit() {
 
-
     this.searchEventsForm.get('keyword')?.valueChanges
       .pipe(
         filter(res => {
@@ -151,6 +150,7 @@ export class EventSearchComponent implements OnInit{
     this.searchEventsForm.patchValue({'keyword' : ''});
     this.searchEventsForm.controls['segment'].setValue(this.defaultSegment, {onlySelf: true});
     this.searchEventsForm.controls['location'].enable();
+    this.searchEventsForm.controls['distance'].setValue(10, {onlySelf: true})
   }
 
   toggleDisableLocation(){
