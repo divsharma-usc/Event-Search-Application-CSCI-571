@@ -115,10 +115,19 @@ app.get('/events', (req, res) => {
 
             try{
                 local_date = event['dates']['start']['localDate'];
+                var local_dates = local_date.split("-");
+                local_date = local_dates.join("/");
             }catch(error){console.log(error);}
         
             try{
                 local_time = event['dates']['start']['localTime'];
+                var time_array = local_time.split(":");
+                var hours = parseFloat(time_array[0]);
+                if(hours < 12){
+                    local_time = hours + ":" + time_array[1] + " AM";
+                }else{
+                    local_time = (hours%12) + ":" + time_array[1] + " PM";
+                }
             }catch(error){console.log(error);}
             
             try{
@@ -295,6 +304,14 @@ app.get('/events/:eventId', (req, res) => {
             local_time = response['dates']['start']['localTime'];
             if (local_time.toLowerCase() === UNDEFINED) {
                 local_time = "";
+            }else{
+                var time_array = local_time.split(":");
+                var hours = parseFloat(time_array[0]);
+                if(hours < 12){
+                    local_time = hours + ":" + time_array[1] + " AM";
+                }else{
+                    local_time = (hours%12) + ":" + time_array[1] + " PM";
+                }
             }
         } catch (err) {}
     
@@ -302,6 +319,35 @@ app.get('/events/:eventId', (req, res) => {
             local_date = response['dates']['start']['localDate'];
             if (local_date.toLowerCase() === UNDEFINED) {
                 local_date = "";
+            }else{
+                var local_dates = local_date.split("-");
+                var month = parseFloat(local_date[1]);
+                if(month==1){
+                    local_date = 'Jan';
+                }else if(month==2){
+                    local_date = 'Feb';
+                }else if(month==3){
+                    local_date = 'Mar';
+                }else if(month==4){
+                    local_date = 'Apr';
+                }else if(month==5){
+                    local_date = 'May';
+                }else if(month==6){
+                    local_date = 'Jun';
+                }else if(month==7){
+                    local_date = 'Jul';
+                }else if(month==8){
+                    local_date = 'Aug';
+                }else if(month==9){
+                    local_date = 'Sep';
+                }else if(month==10){
+                    local_date = 'Oct';
+                }else if(month=11){
+                    local_date = 'Nov';
+                }else{
+                    local_date = 'Dec';
+                }
+                local_date = local_date + " " + local_dates[2] + ", " + local_dates[0]
             }
         } catch (err) {}
     
@@ -346,9 +392,9 @@ app.get('/events/:eventId', (req, res) => {
             price = min_price + ' - ' + max_price;
         }
 
-        /*if (currency !== "" && price !== "") {
-            price = price + " " + currency;
-        }*/
+        if (currency !== "" && price !== "") {
+            price = price + " (" + currency + ")";
+        }
 
         if (local_date !== "") {
             date += local_date;
@@ -371,6 +417,7 @@ app.get('/events/:eventId', (req, res) => {
         let response_to_send = {
             'name': name,
             'eventDate': date,
+            'eventTime': local_time,
             'artistOrTeam': attractions,
             'genres': genres,
             'priceRange': price,
