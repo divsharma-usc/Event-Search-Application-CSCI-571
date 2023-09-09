@@ -11,8 +11,8 @@ var app = express()
 
 const PORT = process.env.PORT || 8080;
 
-const CLIENT_ID = '60ae4067a5ed494aad974907a7e3ca42';
-const CLIENT_SECRET = 'ad6ee9e48bc54a5caf9297f29c183137';
+const CLIENT_ID = '';
+const CLIENT_SECRET = '';
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const REMOTE_API_URI = "https://app.ticketmaster.com/discovery/v2";
-const REMOTE_API_KEY = "Swp5VSdz4nQJk5B9NoeMAMG7r8jMviKo";
+const REMOTE_API_KEY = "";
 const UNDEFINED = "undefined";
 const REMOTE_API_PAGE_SIZE = 20;
 
